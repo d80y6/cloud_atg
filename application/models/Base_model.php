@@ -1470,7 +1470,9 @@ class base_model extends CI_Model {
 		
 		
 		
-		function getTankLogs( $name = null, $controller = null, $count = null, $date = null){
+		// function getTankLogs( $name = null, $controller = null, $count = null, $date = null){
+		function getTankLogs( $name = null, $controller = null, $count = null, $date = null,$from = null,$to = null){
+
             
         if($name != null && $controller != null && $name != "" && $controller != ""){
 
@@ -1496,6 +1498,17 @@ class base_model extends CI_Model {
 			$this->db->order_by('id', 'desc');
 
 		}
+
+
+
+		if(isset($from) && $from != null && $from != 0){
+			$this->db->where('timestamp >=', $from);
+		}
+		if(isset($to) && $to != null && $to != 0){
+			$this->db->where('timestamp <=', $to);
+		}
+
+
 
 		if($count!=null){
 			// $this->db->like('timestamp', $date);

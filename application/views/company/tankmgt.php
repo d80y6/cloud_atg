@@ -300,6 +300,10 @@
 												<canvas id="canvas"></canvas>
 											</div>
 											<div class="col-md-3 col-sm-3 col-xs-12">
+
+											<div class="animated flipInY col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-bottom:10px">
+													<input placeholder="Choose Date" class="" id="tankRange"  >
+												</div>
 												
 												<div class="animated flipInY col-lg-12 col-md-12 col-sm-12 col-xs-12">
 													<div class="tile-stats">

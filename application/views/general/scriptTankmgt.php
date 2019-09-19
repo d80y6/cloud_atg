@@ -28,6 +28,31 @@
 });
 
 
+$('#tankRange').daterangepicker({
+	timePicker: true,
+    startDate: moment().subtract(6, 'month').startOf('month').startOf('hour'),
+	endDate: moment().startOf('hour'),
+    ranges: {
+           'Today': [moment(), moment()],
+           'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+           'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+           'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+           'This Month': [moment().startOf('month'), moment().endOf('month')],
+           'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+    }
+    // locale: {
+    //   format: 'YYYY-MM-DD H:mm'
+    // }
+}, function(start, end, label) {
+	console.log("A new date selection was made: " + start.format('YYYY-MM-DD H:mm:ss') + ' to ' + end.format('YYYY-MM-DD H:mm:ss'));
+	startPicker =  start.format('YYYY-MM-DD H:mm:ss');
+	endPicker =  end.format('YYYY-MM-DD H:mm:ss');
+	getTankLogs(filternum,filterdev,startPicker,endPicker);
+
+  });
+
+
+
 
 
 
@@ -1280,10 +1305,15 @@ currData(curr.tank_num,curr.device_id);
 
 
 
+filternum = null;
+filterdev = null;
 
 
 
-function getTankLogs(num,devid){
+function getTankLogs(num,devid,from,to){
+
+	filternum = num;
+filterdev = devid;
 
 			var jqxhr = $.ajax({
 
@@ -1291,7 +1321,9 @@ url: '<?php echo base_url() ; ?>index.php/getTankLogs/',
 type: 'POST',
 data: {
 	num: num,
-	devid: devid
+	devid: devid,
+	from:from,
+	to:to
 	},
 
 cache:false,
@@ -1306,7 +1338,7 @@ beforeSend: function () {
 .done(function () {
 
 var response = jqxhr.responseText;
-
+console.log(response);
 if (response){
 
 	curr = JSON.parse(response);
@@ -1318,7 +1350,8 @@ if (response){
 	volArray = curr.map(x => JSON.parse(x.log_decoded).fuelVol);
 	// console.log(volArray);
 
-
+volArray = volArray.reverse();
+tsArray = tsArray.reverse();
 	// ================================================
 
 	var config = {

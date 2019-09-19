@@ -2129,8 +2129,13 @@ class Base extends CI_Controller {
 	function getTankLogs(){
 		$num = $this->input->post('num',true);
 		$devid = $this->input->post('devid',true);
+		$from = $this->input->post('from',true);
+		$to = $this->input->post('to',true);
 
-		$currVol = $this->base_model->getTankLogs($num,$devid);
+		// var_dump($from);
+		// var_dump($to);
+
+		$currVol = $this->base_model->getTankLogs($num,$devid,null,null,$from,$to);
 			$currVol = (gettype($currVol) == "string") ? [] : $currVol;
 
 			echo json_encode($currVol);
