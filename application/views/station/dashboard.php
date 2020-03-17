@@ -1,532 +1,664 @@
-<?php    $this->load->view('station/header') ; ?>
+<?php    $this->load->view('station/head') ; ?>
 
 
 
 
-<div class="right_col" role="main">
-<!-- dummy test page yo -->
+
+<div class="page-header">
+              <h3 class="page-title">
+                <span class="page-title-icon bg-gradient-primary text-white mr-2">
+                  <i class="mdi mdi-home"></i>
+                </span> Dashboard </h3>
+              <nav aria-label="breadcrumb">
+                <ul class="breadcrumb">
+                  <li class="breadcrumb-item active" aria-current="page">
+										<span></span><i id="nodeName" class="text-default"></i> &nbsp; 
+										<!-- <i class="mdi mdi-alert-circle-outline icon-sm text-primary align-middle"></i> -->
+                  </li>
+                </ul>
+              </nav>
+			</div>
 
 
- <!-- top filters -->
- <div class="row tile_count">
- 						
-						 <div class="col-md-2 col-sm-4 col-xs-6 ">
-						
-            </div>
-						 <div class="col-md-2 col-sm-4 col-xs-6 ">
-						
-            </div>
-						 <div class="col-md-2 col-sm-4 col-xs-6 ">
-						
-            </div>
-						 <div class="col-md-2 col-sm-4 col-xs-6 ">
-						
-            </div>
-            
-						 <div class="col-md-2 col-sm-4 col-xs-6 ">
-						 <select id="userTypes" class="" style="width: 100%;">
-										<option>Choose User Type</option>
-										
-									</select>
-            </div>
+
+
+		<div class="row" style="">
+
+			<!-- <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 " style="margin-bottom:10px" >
+				<select id="stations" class=""  >
+					<option>Choose Station</option>
 					
-						
-						 <!-- <div class="col-md-2 col-sm-4 col-xs-6 ">
-						 <select class="">
-										<option>Choose Company</option>
-										<option>Option one</option>
-										<option>Option two</option>
-										<option>Option three</option>
-										<option>Option four</option>
-									</select>
-            </div> -->
-						<div class="col-md-2 col-sm-4 col-xs-6 ">
-						 <input placeholder="Choose Date" class="" id="dashRange"  style="width: 100%;height:19px">
-						 
-            </div>
-            
-					
-           
-          </div>
-          <!-- /top filters -->
+				</select>
+			</div> -->
+
+			<div class="col-md-6 col-sm-4 col-xs-6 ">
+
+			</div>
 
 
- <!-- top pans -->
- <div class="row tile_count">
+			<div class="col-md-3 col-sm-4 col-xs-6 ">
+			<select id="userTypes" class="" style="width: 100%;margin-bottom:10px">
+				<option value="">Choose User Type</option>
+				<!-- <option>Option one</option>
+				<option>Option two</option>
+				<option>Option three</option>
+				<option>Option four</option> -->
+			</select>
+			</div>
+		
 			
- 			<div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
-				<span class="count_top"><i class="fa fa-user"></i> Users</span>
-				<div class="count " id="userCount">00</div>
-				<span class="count_bottom"><i class="red" id="iUserCount">00 Inactive </i> | <a href="<?php echo base_url() ; ?>index.php/usermgt" class="">Manage </a></span>
+
+			<div class="col-md-3 col-sm-4 col-xs-6 ">
+			<input placeholder="Choose Date" class="" id="dashRange"  style="width: 100%;height:19px;margin-bottom:10px">
+				<!-- <option>Choose Date</option> -->
+				<!-- <option>Option one</option>
+				<option>Option two</option>
+				<option>Option three</option>
+				<option>Option four</option> -->
+			<!-- </select> -->
 			</div>
-			<div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
-				<span class="count_top"><i class="fa fa-database"></i> Tanks</span>
-				<div class="count" id="tankCount">00</div>
-				<span class="count_bottom"><i class="red" id="iTankCount">00 Inactive </i> | <a href="<?php echo base_url() ; ?>index.php/tankmgt" class="">Manage </a></span>
+
+		</div>
+
+
+
+
+
+						<div class="row">
+              
+              <div class="col-md-4 stretch-card grid-margin">
+                <div class="card bg-gradient-info card-img-holder text-white sasas">
+                  <div class="card-body">
+                    <img src="<?php echo base_url() ; ?>asset/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+                    <h4 class="font-weight-normal mb-3">Tanks <i class="mdi mdi-delete mdi-24px float-right"></i>
+                    </h4>
+                    <h1 class="mb-5" id="tankCount">0000</h1>
+                    <h6 class="card-text"><i class="red" id="iTankCount">00 Inactive </i> | <a href="<?php echo base_url() ; ?>index.php/tankmgt" class="">Manage </a></h6>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4 stretch-card grid-margin">
+                <div class="card bg-gradient-warning card-img-holder text-white sasas">
+                  <div class="card-body">
+                    <img src="<?php echo base_url() ; ?>asset/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+                    <h4 class="font-weight-normal mb-3">Users <i class="mdi mdi-account mdi-24px float-right"></i>
+                    </h4>
+                    <h1 class="mb-5" id="devCount" >0000</h1>
+                    <h6 class="card-text"><i class="red" id="iUserCount">00 Inactive </i> | <a href="<?php echo base_url() ; ?>index.php/usermgt" class="">Manage </a></h6>
+                  </div>
+                </div>
+							</div>
+							<div class="col-md-4 stretch-card grid-margin ">
+                <div class="card bg-gradient-danger card-img-holder text-white sasas">
+                  <div class="card-body">
+                    <img src="<?php echo base_url() ; ?>asset/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+                    <h4 class="font-weight-normal mb-3">Devices <i class="mdi mdi-engine mdi-24px float-right"></i>
+                    </h4>
+                    <h1 class="mb-5" id="statCount">0000</h1>
+                    <h6 class="card-text"><i class="red" id="iDevCount">00 Inactive </i> | <a href="<?php echo base_url() ; ?>index.php/controllermgt" class="">Manage </a></h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+
+
+ <div class="row">
+ 	<div class="col-md-9 grid-margin stretch-card">
+		<div class="card">
+			<div class="card-body">
+				<div class="clearfix">
+					<h4 class="card-title float-left">Product Volumes <small>Last 7 Days</small> </h4>
+					<!-- <div id="visit-sale-chart-legend" class="rounded-legend legend-horizontal legend-top-right float-right"></div> -->
+				</div>
+			<!-- <canvas id="visit-sale-chart" class="mt-4"></canvas> -->
+				<canvas id="myDashLineChart"  ></canvas>
+
 			</div>
-			<div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
-				<span class="count_top"><i class="fa fa-keyboard-o"></i> Devices</span>
-				<div class="count" id="devCount">00</div>
-				<span class="count_bottom"><i class="red" id="iDevCount">00 Inactive </i> | <a href="<?php echo base_url() ; ?>index.php/controllermgt" class="">Manage </a></span>
-			</div>
-			<div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
-				<span class="count_top"><i class="fa fa-tint"></i> Volume (*1000Ltrs)</span>
-				
+		</div>
+	</div>
+
+
+	<div class="col-md-3 grid-margin stretch-card">
+		<div class="card">
+			<div class="card-body">
+				<div class="clearfix">
+					<h4 class="card-title float-left"> Volumes <small>*1000Ltrs</small> </h4>
+					<div id="visit-sale-chart-legend" class="rounded-legend legend-horizontal legend-top-right float-right"></div>
+				</div>
+
 				<div style="border-bottom: 1px solid #D9DEE4;margin-bottom: 2px"><b>PMS:</b> <i id="pmsVol">00</i></div>
 				
 				<div style="border-bottom: 1px solid #D9DEE4;margin-bottom: 2px"><b>AGO:</b> <i id="agoVol">00</i></div>
 				
 				<div style="margin-bottom: 3px"><b>DPK:</b> <i id="dpkVol">00</i></div>
-				<!-- <span class="count_bottom"><i class="red">73 Inactive </i> | <a href="#" class="">Manage </a></span> -->
+
 			</div>
+		</div>
+
+ </div>
+
+
+
+ 
+
+	
+ <div class="col-md-12 grid-margin stretch-card">
+		<div class="card">
+			<div class="card-body">
+				<div class="clearfix">
+					<h4 class="card-title float-left" style="border-bottom: solid 1px #f3eded" > Volume Sales By Product <small>Specify Range Using Date Filter Above</small> </h4>
+				</div>
+		
+			<!-- ========================== -->
+			
+		<div class="row">
+
+			<div class="col-md-4 col-sm-4 col-xs-4" style="border-right:1px solid #E6E9ED;margin-top:20px">
+					<h3 class="pull-right">PMS <small>(* 1000Ltrs)</small></h3>
+			<div class="clearfix"></div>
+			<br><br>
+					<i class="fa fa-tint fa-3x text-info pull-left"></i>
+			<!-- <div class="clearfix"></div> -->
+
+
+				<i class=" pull-right" style="font-size:28px" id="vsppms">00</i>
+			</div>
+
+			<div class="col-md-4 col-sm-4 col-xs-4" style="border-right:1px solid #E6E9ED;margin-top:20px">
+					<h3 class="pull-right">AGO <small>(* 1000Ltrs)</small></h3>
+			<div class="clearfix"></div>
+			<br><br>
+
+					<i class="fa fa-tint fa-3x text-warning pull-left"></i>
+			<!-- <div class="clearfix"></div> -->
+
+
+				<i class=" pull-right" style="font-size:28px" id="vspago">00</i>
+			</div>
+
+
+			<div class="col-md-4 col-sm-4 col-xs-4" style="margin-top:20px">
+					<h3 class="pull-right">DPK <small>(* 1000Ltrs)</small></h3>
+			<div class="clearfix"></div>
+			<br><br>
+
+					<i class="fa fa-tint fa-3x text-danger pull-left"></i>
+			<!-- <div class="clearfix"></div> -->
+
+
+				<i class=" pull-right" style="font-size:28px" id="vspdpk">00</i>
+			</div>
+			
+		</div>
+			<!-- ========================== -->
+
+				
+
+			</div>
+		</div>
+	
 	</div>
-	<!-- /top pans -->
 
-	  <div class="row">
-            <div class="col-md-12 col-sm-12 col-xs-12">
-              <div class="dashboard_graph">
 
-                <div class="row x_title">
-                  <div class="col-md-6">
-                    <h3>Product Volumes <small >Last 7 Days <i id="lsd"></i></small></h3>
+
+
+		
+	<div class="col-md-4 grid-margin stretch-card">
+		<div class="card">
+			<div class="card-body">
+				<div class="clearfix">
+					<h4 class="card-title float-left" style="border-bottom: solid 1px #f3eded" > PMS </h4>
+				</div>
+
+				<div>
+						<h3 class="pull-right">Average Reorder Days</h3>
+				<div class="clearfix"></div>
+
+						<i class="fa fa-calendar fa-2x text-info  pull-left"></i>
+
+					<i class=" pull-right" style="font-size:24px" id="ardpms">00</i>
+				</div>
+				<br>
+				<div class="clearfix"></div>
+
+				<div style="border-top:1px solid #E6E9ED;margin-top:20px">
+						<h3 class="pull-right">Average Daily Sales <small> (* 1000Ltrs)</small>  </h3>
+				<div class="clearfix"></div>
+
+						<i class="fa fa-tint fa-2x text-info  pull-left"></i>
+				<!-- <div class="clearfix"></div> -->
+
+
+					<i class=" pull-right" style="font-size:24px" id="adspms">00</i>
+				</div>
+				
+
+			</div>
+		</div>
+	
+	</div>
+	
+	<div class="col-md-4 grid-margin stretch-card">
+		<div class="card">
+			<div class="card-body">
+				<div class="clearfix">
+					<h4 class="card-title float-left" style="border-bottom: solid 1px #f3eded" > AGO </h4>
+				</div>
+
+
+				<div>
+						<h3 class="pull-right">Average Reorder Days</h3>
+				<div class="clearfix"></div>
+
+						<i class="fa fa-calendar fa-2x text-warning  pull-left"></i>
+
+					<i class=" pull-right" style="font-size:24px" id="ardago">00</i>
+				</div>
+				<br>
+				<div class="clearfix"></div>
+
+				<div style="border-top:1px solid #E6E9ED;margin-top:20px">
+						<h3 class="pull-right">Average Daily Sales <small> (* 1000Ltrs)</small>  </h3>
+				<div class="clearfix"></div>
+
+						<i class="fa fa-tint fa-2x text-warning pull-left"></i>
+				<!-- <div class="clearfix"></div> -->
+
+
+					<i class=" pull-right" style="font-size:24px" id="adsago">00</i>
+				</div>
+				
+
+			</div>
+		</div>
+	
+	</div>
+
+		
+	<div class="col-md-4 grid-margin stretch-card">
+		<div class="card">
+			<div class="card-body">
+				<div class="clearfix">
+					<h4 class="card-title float-left" style="border-bottom: solid 1px #f3eded" > DPK </h4>
+				</div>
+
+					<div>
+							<h3 class="pull-right">Average Reorder Days</h3>
+					<div class="clearfix"></div>
+
+							<i class="fa fa-calendar fa-2x text-danger pull-left"></i>
+
+						<i class=" pull-right" style="font-size:24px" id="arddpk">00</i>
+					</div>
+					<br>
+					<div class="clearfix"></div>
+
+					<div style="border-top:1px solid #E6E9ED;margin-top:20px">
+							<h3 class="pull-right">Average Daily Sales <small> (* 1000Ltrs)</small>  </h3>
+					<div class="clearfix"></div>
+
+							<i class="fa fa-tint fa-2x text-danger pull-left"></i>
+					<!-- <div class="clearfix"></div> -->
+
+
+						<i class=" pull-right" style="font-size:24px" id="adsdpk">00</i>
+					</div>
+
+				
+
+			</div>
+		</div>
+	
+	</div>
+	
+	<div class="col-md-6 grid-margin stretch-card">
+		<div class="card">
+			<div class="card-body">
+				<div class="clearfix">
+					<h4 class="card-title float-left" style="border-bottom: solid 1px #f3eded" > Recent Logs </h4>
+				</div>
+		
+				<!-- <div id="statMap" style=" height: 250px"></div> -->
+				<ul class="list-unstyled msg_list" id="rLogs"></ul>
+
+				
+
+			</div>
+		</div>
+	
+	</div>
+	
+	<div class="col-md-6 grid-margin stretch-card">
+		<div class="card">
+			<div class="card-body">
+				<div class="clearfix">
+					<h4 class="card-title float-left" style="border-bottom: solid 1px #f3eded" > Inactive/Decommissioned Tanks </h4>
+				</div>
+		
+				<!-- <div id="statMap" style=" height: 250px"></div> -->
+				<ul class="list-unstyled msg_list" id="iTanks"></ul>
+
+				
+
+			</div>
+		</div>
+	
+	</div>
+
+
+
+
+ </div>
+
+
+			
+            <!-- <div class="row">
+              <div class="col-md-4 stretch-card grid-margin ">
+                <div class="card bg-gradient-danger card-img-holder text-white sasas">
+                  <div class="card-body">
+                    <img src="<?php echo base_url() ; ?>asset/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+                    <h4 class="font-weight-normal mb-3">Weekly Sales <i class="mdi mdi-chart-line mdi-24px float-right"></i>
+                    </h4>
+                    <h2 class="mb-5">$ 15,0000</h2>
+                    <h6 class="card-text">Increased by 60%</h6>
                   </div>
-                  <!-- <div class="col-md-6">
-                    <div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
-                      <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
-                      <span>December 30, 2014 - January 28, 2015</span> <b class="caret"></b>
-                    </div>
-                  </div> -->
                 </div>
-
-                <div class="col-md-9 col-sm-9 col-xs-12">
-                  <!-- <div id="chart_plot_01" class="demo-placeholder"></div> -->
-									<canvas id="myDashLineChart" ></canvas>
-
+              </div>
+              <div class="col-md-4 stretch-card grid-margin">
+                <div class="card bg-gradient-info card-img-holder text-white sasas">
+                  <div class="card-body">
+                    <img src="<?php echo base_url() ; ?>asset/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+                    <h4 class="font-weight-normal mb-3">Weekly Orders <i class="mdi mdi-bookmark-outline mdi-24px float-right"></i>
+                    </h4>
+                    <h2 class="mb-5">45,6334</h2>
+                    <h6 class="card-text">Decreased by 10%</h6>
+                  </div>
                 </div>
-                <!-- <div class="col-md-1 col-sm-1 col-xs-12 bg-white">
-								</div> -->
-                <div class="col-md-3 col-sm-3 col-xs-12 bg-white">
-                  <div class="x_title">
-                    <h2>Asset Status <small>(Active/Inactive)</small> </h2>
-                    <div class="clearfix"></div>
+              </div>
+              <div class="col-md-4 stretch-card grid-margin">
+                <div class="card bg-gradient-success card-img-holder text-white sasas">
+                  <div class="card-body">
+                    <img src="<?php echo base_url() ; ?>asset/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+                    <h4 class="font-weight-normal mb-3">Visitors Online <i class="mdi mdi-diamond mdi-24px float-right"></i>
+                    </h4>
+                    <h2 class="mb-5">95,5741</h2>
+                    <h6 class="card-text">Increased by 5%</h6>
                   </div>
-
-                  <!-- <div class="col-md-12 col-sm-12 col-xs-6"> -->
-                    <!-- <div>
-                      <p>Companies</p>
-                      <div class="">
-                        <div class="progress progress_sm" style="width: 76%;">
-                          <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="80"></div>
-                        </div>
-                      </div>
-                    </div> -->
-                    <!-- <div>
-                      <p>Stations</p>
-                      <div class="">
-                        <div class="progress progress_sm" style="width: 76%;">
-                          <div class="progress-bar bg-green" role="progressbar" id="statBar"></div>
-                        </div>
-                      </div>
-                    </div> -->
-                  <!-- </div> -->
-                  <div class="col-md-12 col-sm-12 col-xs-6">
-                    <div>
-                      <p>Devices</p>
-                      <div class="">
-                        <div class="progress " style="width: 76%;">
-                          <div class="progress-bar bg-green" role="progressbar" id="devBar"></div>
-                        </div>
-                      </div>
-                    </div>
-                    <div>
-                      <p>Tanks</p>
-                      <div class="">
-                        <div class="progress " style="width: 76%;">
-                          <div class="progress-bar bg-green" role="progressbar" id="tankBar"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-               
-				<div class="col-md-12 col-sm-12 col-xs-6">
-                    <div>
-                      <p>Users</p>
-                      <div class="">
-                        <div class="progress " style="width: 76%;">
-                          <div class="progress-bar bg-green" role="progressbar" id="userBar" data-transitiongoal="0"></div>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- <div>
-                      <p>Tanks</p>
-                      <div class="">
-
-										
-
-                        <div class="progress progress_sm" style="width: 76%;">
-                          <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="50"></div>
-                        </div>
-
-                      </div>
-                    </div> -->
-                  </div>
-
-
-					
-
                 </div>
-
-                <div class="clearfix"></div>
               </div>
             </div>
-
-          </div>
-
-<br/>
-
-					<!-- row 3 -->
-					<div class="row">
-
-
-<div class="col-md-4 col-sm-4 col-xs-12">
-	<div class="x_panel tile fixed_height_320">
-		<div class="x_title">
-			<h2>Recent Station Reorders </h2>
-			<ul class="nav navbar-right panel_toolbox">
-			
-			</ul>
-			<div class="clearfix"></div>
-		</div>
-		<div class="x_content">
-			<ul class="list-unstyled msg_list" id="rreords">
-				<!-- <li  style="max-height:55px">
-					<a class="row" style="width:100%">
-						<span class="col-md-3 col-sm-3 col-xs-3">
-						<i class="fa fa-tint fa-3x"></i>
-						</span>
-						<span class="col-md-9 col-sm-9 col-xs-9">
-							<b>Product</b>: <i class="pull-right">Station</i>
-							<br> 
-							<b>Tank(Vol)</b>: <i class="pull-right">Location</i>
-						</span>
-					
-					</a>
-				</li> -->
-			</ul>
-			
-		</div>
-	</div>
-</div>
-
-<div class="col-md-4 col-sm-4 col-xs-12">
-	<div class="x_panel tile fixed_height_320 overflow_hidden">
-		<div class="x_title">
-			<h2> Online Users</h2>
-		
-			<div class="clearfix"></div>
-		</div>
-		<div class="x_content">
-			<!-- <canvas id="myDashOnlineDonut"  style="margin: 15px 10px 10px 0"></canvas> -->
-			<canvas id="myDashOnlineDonut" height="180" ></canvas>
-
-		
-		</div>
-	</div>
-</div>
-
-
-<div class="col-md-4 col-sm-4 col-xs-12">
-	<div class="x_panel tile fixed_height_320">
-		<div class="x_title">
-			<h2>  Inactive/Decommissioned Tanks </h2>
-		
-			<div class="clearfix"></div>
-		</div>
-		<div class="x_content">
-
-		<ul class="list-unstyled msg_list" id="iTanks">
-				<!-- <li  style="max-height:55px">
-					<a class="row" style="width:100%">
-						<span class="col-md-4 col-sm-4 col-xs-4">
-						<i class="fa fa-database fa-3x"></i>
-						<span class="badge bg-red" style="
-						font-size: 10px;
-						font-weight: 400;
-						line-height: 13px;
-						padding: 2px 6px;
-						position: absolute;
-						right: 30px;
-						top: -1px;">F</span>
-
-						</span>
-						<span class="col-md-8 col-sm-8 col-xs-8">
-							<b>Tank</b>: <i class="pull-right">Tank</i>
-							<br>
-							<b>Product</b>: <i class="pull-right">Product</i>
-						
-						
-						</span>
-					
-					
-					</a>
-				</li> -->
-			</ul>
-
-	
-		</div>
-	</div>
-</div>
-
-</div>
-
-
-					<!-- /row 3 -->
-
-<br/>
-
-					<!-- row 4 -->
-					<div class="row">
-
-
-<div class="col-md-4 col-sm-4 col-xs-12">
-	<div class="x_panel tile fixed_height_320">
-		<div class="x_title">
-			<h2> PMS</h2>
-			
-			<div class="clearfix"></div>
-		</div>
-		<div class="x_content">
-<div>
-		<h2 class="pull-right">Average Reorder Days</h2>
-<div class="clearfix"></div>
-
-		<i class="fa fa-calendar fa-3x  pull-left"></i>
-
-	<i class=" pull-right" style="font-size:24px" id="ardpms">00</i>
-</div>
-<br>
-<div class="clearfix"></div>
-
-<div style="border-top:1px solid #E6E9ED;margin-top:20px">
-		<h2 class="pull-right">Average Daily Sales (* 1000Ltrs)</h2>
-<div class="clearfix"></div>
-
-		<i class="fa fa-tint fa-3x  pull-left"></i>
-<!-- <div class="clearfix"></div> -->
-
-
-	<i class=" pull-right" style="font-size:24px" id="adspms">00</i>
-</div>
-
-			
-		</div>
-	</div>
-</div>
-
-<div class="col-md-4 col-sm-4 col-xs-12">
-	<div class="x_panel tile fixed_height_320 overflow_hidden">
-		<div class="x_title">
-			<h2> AGO</h2>
-		
-			<div class="clearfix"></div>
-		</div>
-		<div class="x_content">
-	
-		<div>
-		<h2 class="pull-right">Average Reorder Days</h2>
-<div class="clearfix"></div>
-
-		<i class="fa fa-calendar fa-3x  pull-left"></i>
-
-	<i class=" pull-right" style="font-size:24px" id="ardago">00</i>
-</div>
-<br>
-<div class="clearfix"></div>
-
-<div style="border-top:1px solid #E6E9ED;margin-top:20px">
-		<h2 class="pull-right">Average Daily Sales (* 1000Ltrs)</h2>
-<div class="clearfix"></div>
-
-		<i class="fa fa-tint fa-3x  pull-left"></i>
-<!-- <div class="clearfix"></div> -->
-
-
-	<i class=" pull-right" style="font-size:24px" id="adsago">00</i>
-</div>
-
-	
-		</div>
-	</div>
-</div>
-
-
-<div class="col-md-4 col-sm-4 col-xs-12">
-	<div class="x_panel tile fixed_height_320">
-		<div class="x_title">
-			<h2>  DPK </h2>
-		
-			<div class="clearfix"></div>
-		</div>
-		<div class="x_content">
-
-
-<div>
-		<h2 class="pull-right">Average Reorder Days</h2>
-<div class="clearfix"></div>
-
-		<i class="fa fa-calendar fa-3x  pull-left"></i>
-
-	<i class=" pull-right" style="font-size:24px" id="arddpk">00</i>
-</div>
-<br>
-<div class="clearfix"></div>
-
-<div style="border-top:1px solid #E6E9ED;margin-top:20px">
-		<h2 class="pull-right">Average Daily Sales (* 1000Ltrs)</h2>
-<div class="clearfix"></div>
-
-		<i class="fa fa-tint fa-3x  pull-left"></i>
-<!-- <div class="clearfix"></div> -->
-
-
-	<i class=" pull-right" style="font-size:24px" id="adsdpk">00</i>
-</div>
-
-
-		</div>
-	</div>
-</div>
-
-</div>
-
-
-					<!-- /row 4 -->
-					<!-- row 5 -->
-					<div class="row">
-
-
-<div class="col-md-8 col-sm-8 col-xs-12">
-	<div class="x_panel tile fixed_height_320">
-		<div class="x_title">
-			<h2> Volume Sales By Product <small>Specify Range Using Date Filter Above</small></h2>
-			
-			<div class="clearfix"></div>
-		</div>
-		<div class="x_content">
-
-<!-- ========================== -->
-	
-<div class="col-md-4 col-sm-4 col-xs-4" style="border-right:1px solid #E6E9ED;margin-top:20px">
-		<h2 class="pull-right">PMS (* 1000Ltrs)</h2>
-<div class="clearfix"></div>
-<br><br>
-		<i class="fa fa-tint fa-3x  pull-left"></i>
-<!-- <div class="clearfix"></div> -->
-
-
-	<i class=" pull-right" style="font-size:28px" id="vsppms">00</i>
-</div>
-
-<div class="col-md-4 col-sm-4 col-xs-4" style="border-right:1px solid #E6E9ED;margin-top:20px">
-		<h2 class="pull-right">AGO (* 1000Ltrs)</h2>
-<div class="clearfix"></div>
-<br><br>
-
-		<i class="fa fa-tint fa-3x  pull-left"></i>
-<!-- <div class="clearfix"></div> -->
-
-
-	<i class=" pull-right" style="font-size:28px" id="vspago">00</i>
-</div>
-
-
-<div class="col-md-4 col-sm-4 col-xs-4" style="margin-top:20px">
-		<h2 class="pull-right">DPK (* 1000Ltrs)</h2>
-<div class="clearfix"></div>
-<br><br>
-
-		<i class="fa fa-tint fa-3x  pull-left"></i>
-<!-- <div class="clearfix"></div> -->
-
-
-	<i class=" pull-right" style="font-size:28px" id="vspdpk">00</i>
-</div>
-<!-- ========================== -->
-
-		</div>
-	</div>
-</div>
-
-<!-- <div class="col-md-4 col-sm-4 col-xs-12">
-	<div class="x_panel tile fixed_height_320">
-		<div class="x_title">
-			<h2>Recent Logs</h2>
-			
-			<div class="clearfix"></div>
-		</div>
-		<div class="x_content">
-			<ul class="list-unstyled msg_list">
-				<li>
-					<a>
-						<span class="image">
-						<i class="fa fa-list"></i>
-						</span>
-						<span>
-							<span>John Smith</span>
-							<span class="time">3 mins ago</span>
-						</span>
-						<span class="message">
-							Film festivals used to be do-or-die moments for movie makers. They were where you met the producers that
-						</span>
-					</a>
-				</li>
-			</ul>
-			
-		</div>
-	</div>
-</div> -->
-
-
-<div class="col-md-4 col-sm-4 col-xs-12">
-	<div class="x_panel tile fixed_height_320">
-		<div class="x_title">
-			<h2>Recent Logs</h2>
-			
-			<div class="clearfix"></div>
-		</div>
-		<div class="x_content">
-			<ul class="list-unstyled msg_list" id="rLogs">
-				<!-- <li>
-					<a>
-						<span class="image">
-						<i class="fa fa-list"></i>
-						</span>
-						<span>
-							<span>John Smith</span>
-							<span class="time">3 mins ago</span>
-						</span>
-						<span class="message">
-							Film festivals used to be do-or-die moments for movie makers. They were where you met the producers that
-						</span>
-					</a>
-				</li> -->
-			</ul>
-			
-		</div>
-	</div>
-</div>
-
-
-
-
-</div>
-
-
-					<!-- /row 5 -->
-
-
-</div>
-
-
-<?php    $this->load->view('station/footer') ; ?>
+            <div class="row">
+              <div class="col-md-7 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="clearfix">
+                      <h4 class="card-title float-left">Visit And Sales Statistics</h4>
+                      <div id="visit-sale-chart-legend" class="rounded-legend legend-horizontal legend-top-right float-right"></div>
+                    </div>
+                    <canvas id="visit-sale-chart" class="mt-4"></canvas>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-5 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Traffic Sources</h4>
+                    <canvas id="traffic-chart"></canvas>
+                    <div id="traffic-chart-legend" class="rounded-legend legend-vertical legend-bottom-left pt-4"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12 grid-margin">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Recent Tickets</h4>
+                    <div class="table-responsive">
+                      <table class="table">
+                        <thead>
+                          <tr>
+                            <th> Assignee </th>
+                            <th> Subject </th>
+                            <th> Status </th>
+                            <th> Last Update </th>
+                            <th> Tracking ID </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>
+                              <img src="<?php echo base_url() ; ?>asset/images/faces/face1.jpg" class="mr-2" alt="image"> David Grey </td>
+                            <td> Fund is not recieved </td>
+                            <td>
+                              <label class="badge badge-gradient-success">DONE</label>
+                            </td>
+                            <td> Dec 5, 2017 </td>
+                            <td> WD-12345 </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <img src="<?php echo base_url() ; ?>asset/images/faces/face2.jpg" class="mr-2" alt="image"> Stella Johnson </td>
+                            <td> High loading time </td>
+                            <td>
+                              <label class="badge badge-gradient-warning">PROGRESS</label>
+                            </td>
+                            <td> Dec 12, 2017 </td>
+                            <td> WD-12346 </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <img src="<?php echo base_url() ; ?>asset/images/faces/face3.jpg" class="mr-2" alt="image"> Marina Michel </td>
+                            <td> Website down for one week </td>
+                            <td>
+                              <label class="badge badge-gradient-info">ON HOLD</label>
+                            </td>
+                            <td> Dec 16, 2017 </td>
+                            <td> WD-12347 </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <img src="<?php echo base_url() ; ?>asset/images/faces/face4.jpg" class="mr-2" alt="image"> John Doe </td>
+                            <td> Loosing control on server </td>
+                            <td>
+                              <label class="badge badge-gradient-danger">REJECTED</label>
+                            </td>
+                            <td> Dec 3, 2017 </td>
+                            <td> WD-12348 </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Recent Updates</h4>
+                    <div class="d-flex">
+                      <div class="d-flex align-items-center mr-4 text-muted font-weight-light">
+                        <i class="mdi mdi-account-outline icon-sm mr-2"></i>
+                        <span>jack Menqu</span>
+                      </div>
+                      <div class="d-flex align-items-center text-muted font-weight-light">
+                        <i class="mdi mdi-clock icon-sm mr-2"></i>
+                        <span>October 3rd, 2018</span>
+                      </div>
+                    </div>
+                    <div class="row mt-3">
+                      <div class="col-6 pr-1">
+                        <img src="<?php echo base_url() ; ?>asset/images/dashboard/img_1.jpg" class="mb-2 mw-100 w-100 rounded" alt="image">
+                        <img src="<?php echo base_url() ; ?>asset/images/dashboard/img_4.jpg" class="mw-100 w-100 rounded" alt="image">
+                      </div>
+                      <div class="col-6 pl-1">
+                        <img src="<?php echo base_url() ; ?>asset/images/dashboard/img_2.jpg" class="mb-2 mw-100 w-100 rounded" alt="image">
+                        <img src="<?php echo base_url() ; ?>asset/images/dashboard/img_3.jpg" class="mw-100 w-100 rounded" alt="image">
+                      </div>
+                    </div>
+                    <div class="d-flex mt-5 align-items-top">
+                      <img src="<?php echo base_url() ; ?>asset/images/faces/face3.jpg" class="img-sm rounded-circle mr-3" alt="image">
+                      <div class="mb-0 flex-grow">
+                        <h5 class="mr-2 mb-2">School Website - Authentication Module.</h5>
+                        <p class="mb-0 font-weight-light">It is a long established fact that a reader will be distracted by the readable content of a page.</p>
+                      </div>
+                      <div class="ml-auto">
+                        <i class="mdi mdi-heart-outline text-muted"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-7 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Project Status</h4>
+                    <div class="table-responsive">
+                      <table class="table">
+                        <thead>
+                          <tr>
+                            <th> # </th>
+                            <th> Name </th>
+                            <th> Due Date </th>
+                            <th> Progress </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td> 1 </td>
+                            <td> Herman Beck </td>
+                            <td> May 15, 2015 </td>
+                            <td>
+                              <div class="progress">
+                                <div class="progress-bar bg-gradient-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td> 2 </td>
+                            <td> Messsy Adam </td>
+                            <td> Jul 01, 2015 </td>
+                            <td>
+                              <div class="progress">
+                                <div class="progress-bar bg-gradient-danger" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td> 3 </td>
+                            <td> John Richards </td>
+                            <td> Apr 12, 2015 </td>
+                            <td>
+                              <div class="progress">
+                                <div class="progress-bar bg-gradient-warning" role="progressbar" style="width: 90%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td> 4 </td>
+                            <td> Peter Meggik </td>
+                            <td> May 15, 2015 </td>
+                            <td>
+                              <div class="progress">
+                                <div class="progress-bar bg-gradient-primary" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td> 5 </td>
+                            <td> Edward </td>
+                            <td> May 03, 2015 </td>
+                            <td>
+                              <div class="progress">
+                                <div class="progress-bar bg-gradient-danger" role="progressbar" style="width: 35%" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td> 5 </td>
+                            <td> Ronald </td>
+                            <td> Jun 05, 2015 </td>
+                            <td>
+                              <div class="progress">
+                                <div class="progress-bar bg-gradient-info" role="progressbar" style="width: 65%" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-5 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title text-white">Todo</h4>
+                    <div class="add-items d-flex">
+                      <input type="text" class="form-control todo-list-input" placeholder="What do you need to do today?">
+                      <button class="add btn btn-gradient-primary font-weight-bold todo-list-add-btn" id="add-task">Add</button>
+                    </div>
+                    <div class="list-wrapper">
+                      <ul class="d-flex flex-column-reverse todo-list todo-list-custom">
+                        <li>
+                          <div class="form-check">
+                            <label class="form-check-label">
+                              <input class="checkbox" type="checkbox"> Meeting with Alisa </label>
+                          </div>
+                          <i class="remove mdi mdi-close-circle-outline"></i>
+                        </li>
+                        <li class="completed">
+                          <div class="form-check">
+                            <label class="form-check-label">
+                              <input class="checkbox" type="checkbox" checked> Call John </label>
+                          </div>
+                          <i class="remove mdi mdi-close-circle-outline"></i>
+                        </li>
+                        <li>
+                          <div class="form-check">
+                            <label class="form-check-label">
+                              <input class="checkbox" type="checkbox"> Create invoice </label>
+                          </div>
+                          <i class="remove mdi mdi-close-circle-outline"></i>
+                        </li>
+                        <li>
+                          <div class="form-check">
+                            <label class="form-check-label">
+                              <input class="checkbox" type="checkbox"> Print Statements </label>
+                          </div>
+                          <i class="remove mdi mdi-close-circle-outline"></i>
+                        </li>
+                        <li class="completed">
+                          <div class="form-check">
+                            <label class="form-check-label">
+                              <input class="checkbox" type="checkbox" checked> Prepare for presentation </label>
+                          </div>
+                          <i class="remove mdi mdi-close-circle-outline"></i>
+                        </li>
+                        <li>
+                          <div class="form-check">
+                            <label class="form-check-label">
+                              <input class="checkbox" type="checkbox"> Pick up kids from school </label>
+                          </div>
+                          <i class="remove mdi mdi-close-circle-outline"></i>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+		  </div> -->
+		  
+
+
+
+
+<?php    $this->load->view('station/foot') ; ?>
 <?php    $this->load->view('station/scriptDashboard') ; ?>

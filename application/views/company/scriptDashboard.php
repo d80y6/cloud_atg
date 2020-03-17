@@ -311,7 +311,7 @@ loadDash();
 			pApp = `	<li  style="max-height:55px">
 				<a class="row" style="width:100%">
 					<span class="col-md-2 col-sm-2 col-xs-2">
-					<i class="fa fa-building-o fa-3x"></i>
+					<i class="far fa-building fa-3x"></i>
 					</span>
 					<span class="col-md-9 col-sm-9 col-xs-9">
 						<b>Company</b>: <i class="pull-right">`+capitalizeFirstLetter(val.name)+`</i>
@@ -401,10 +401,10 @@ loadDash();
 			_u.forEach(rlogs, function(val, key) {
 
 			
-			rlog = `		<li>
+			rlog = `		<li style="background-color:#fafafa;margin-bottom:5px">
 				<a>
 					<span class="image">
-					<i class="fa fa-list"></i>
+					<i class="fa fa-list text-info"></i>
 					</span>
 					<span>
 						<span>`+val.user+`</span>
@@ -823,6 +823,10 @@ function dateDiffInDays(a, b) {
 		lineDPK = Array.isArray(res.dpkSevenLogs) ? res.dpkSevenLogs.reverse() : [];
 		// lineDPK[5] = 40;
 
+		console.log(linePMS);
+		console.log(lineAGO);
+		console.log(lineDPK);
+
 		loadLineGraph();
 
 		onlineUsers = Number.isInteger(res.userOnline) ? res.userOnline : 0;
@@ -912,10 +916,10 @@ if ($('#myDashLineChart').length ){
 				labels: ["7 Days Ago", "6 Days Ago", "5 Days Ago", "4 Days Ago", "3 Days Ago", "2 Days Ago", "1 Day Ago"],
 				datasets: [{
 				label: "PMS",
-				backgroundColor: "rgba(38, 185, 154, 0.31)",
-				borderColor: "rgba(38, 185, 154, 0.7)",
-				pointBorderColor: "rgba(38, 185, 154, 0.7)",
-				pointBackgroundColor: "rgba(38, 185, 154, 0.7)",
+				backgroundColor: "rgba(25, 138, 227, 0.31)",
+				borderColor: "rgba(25, 138, 227, 0.7)",
+				pointBorderColor: "rgba(25, 138, 227, 0.7)",
+				pointBackgroundColor: "rgba(25, 138, 227, 0.7)",
 				pointHoverBackgroundColor: "#fff",
 				pointHoverBorderColor: "rgba(220,220,220,1)",
 				pointBorderWidth: 1,
@@ -923,10 +927,10 @@ if ($('#myDashLineChart').length ){
 				data: linePMS
 				}, {
 				label: "DPK",
-				backgroundColor: "rgba(3, 88, 106, 0.3)",
-				borderColor: "rgba(3, 88, 106, 0.70)",
-				pointBorderColor: "rgba(3, 88, 106, 0.70)",
-				pointBackgroundColor: "rgba(3, 88, 106, 0.70)",
+				backgroundColor: "rgba(254, 124, 150, 0.3)",
+				borderColor: "rgba(254, 124, 150, 0.70)",
+				pointBorderColor: "rgba(254, 124, 150, 0.70)",
+				pointBackgroundColor: "rgba(254, 124, 150, 0.70)",
 				pointHoverBackgroundColor: "#fff",
 				pointHoverBorderColor: "rgba(151,187,205,1)",
 				pointBorderWidth: 1,
@@ -935,10 +939,10 @@ if ($('#myDashLineChart').length ){
 
 				}, {
 				label: "AGO",
-				backgroundColor: "rgba(23, 8, 106, 0.3)",
-				borderColor: "rgba(23, 8, 106, 0.70)",
-				pointBorderColor: "rgba(23, 8, 106, 0.70)",
-				pointBackgroundColor: "rgba(23, 8, 106, 0.70)",
+				backgroundColor: "rgba(254, 215, 19, 0.3)",
+				borderColor: "rgba(254, 215, 19, 0.70)",
+				pointBorderColor: "rgba(254, 215, 19, 0.70)",
+				pointBackgroundColor: "rgba(254, 215, 19, 0.70)",
 				pointHoverBackgroundColor: "#fff",
 				pointHoverBorderColor: "rgba(151,187,205,1)",
 				pointBorderWidth: 1,

@@ -1,33 +1,71 @@
-<?php    $this->load->view('general/header') ; ?>
+<?php    $this->load->view('general/head') ; ?>
 
 
+<div class="page-header">
+              <h3 class="page-title">
+                <span class="page-title-icon bg-gradient-primary text-white mr-2">
+                  <i class="mdi mdi-city"></i>
+                </span> Company Management </h3>
+              <nav aria-label="breadcrumb">
+                <ul class="breadcrumb">
+                  <li class="breadcrumb-item active" aria-current="page">
+                    <span></span>Overview <i class="mdi mdi-alert-circle-outline icon-sm text-primary align-middle"></i>
+                  </li>
+                </ul>
+              </nav>
+			</div>
 
 
 <div class="right_col" role="main">
 <!-- dummy test page yo -->
 
 
-  <div class="col-md-12 col-sm-12 col-xs-12">
+<div class="row">
+	<div class="col-md-12 grid-margin stretch-card ">
+		<div class="card ">
+			<div class="card-body">
+				<div class="clearfix">
+					<h4 class="card-title float-left">Companies <hr> </h4>
+					
+					<h4 class="card-title float-right" id="addnew"><p class="float-right"><a style="padding:5px; " class="text-primary" href="#" onclick="addNew()"><i class="fa fa-plus-circle"></i> Add New Company</a></p>
+					<p class="float-right"><a style="padding:5px;" class="text-warning" href="#" onclick="loadCoytable()"><i class="fa fa-refresh"></i> Refresh</a></p></h4>
+					<div id="visit-sale-chart-legend" class="rounded-legend legend-horizontal legend-top-right float-right"></div>
+				</div>
+			
+<div style="overflow-x:auto;">
+
+	<table id="tblcompanies" class="table table-hover responsive">
+		<thead> 
+			<tr>
+				<th>Name <small>(Links to Stations)</small></th>
+				<th>Phone Number</th>
+				<th>Comments</th>
+				
+				<th class="text-center">Actions</th>
+			</tr>
+			
+		</thead>
+		<tbody>
+			
+			</tbody>
+		</table>
+</div>
+		
+				
+			</div>
+		</div>
+	</div>
+ </div>
+
+
+  <!-- <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
                     <h2>Companies <small>Manage Companies Here</small></h2>
                     <ul class="nav navbar-right  pull-right">
 					<li class="pull-right" id="addnew"><a style="padding:5px; " class="text-primary" href="#" onclick="addNew()"><i class="fa fa-plus-circle"></i> Add New Company</a></li>
 						<li class="pull-right "><a style="padding:5px;" class="text-warning" href="#" onclick="loadCoytable()"><i class="fa fa-refresh"></i> Refresh</a></li>
-										 <!-- <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li> -->
-                      <!-- <li><i class="collapse-link"><i class="fa fa-chevron-up"></i></i> -->
-                      <!-- <li><i class="fa fa-chevron-up"></i> -->
-                      <!-- </li> -->
-                      <!-- <li class="dropdown pull-right" >
-                        <a href="#" class="  dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                        <ul class="dropdown-menu"  role="menu">
-                          <li id="addnew" ><a href="#" onclick="addNew()"><i class="fa fa-plus-circle"></i> Add New Company</a>
-                          </li>
-                          <li><a href="#" onclick="loadCoytable()"><i class="fa fa-refresh"></i> Refresh</a>
-                          </li>
-                        </ul>
-                      </li> -->
+										
                      
                     </ul>
                     <div class="clearfix"></div>
@@ -37,7 +75,6 @@
 						<thead> 
 								<tr>
 								<th>Name <small>(Links to Stations)</small></th>
-								<!-- <th>Email</th> -->
 								<th>Phone Number</th>
 								<th>Comments</th>
 
@@ -57,7 +94,7 @@
               <div class="clearfix"></div>
 
 
-</div>
+</div> -->
 
 
 
@@ -419,5 +456,5 @@
 <!-- ======================================================= -->
 
 
-<?php    $this->load->view('general/footer') ; ?>
+<?php    $this->load->view('general/foot') ; ?>
 <?php    $this->load->view('general/scriptCompanymgt') ; ?>

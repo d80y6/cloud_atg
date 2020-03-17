@@ -8,12 +8,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="icon" href="images/favicon.ico" type="image/ico" />
 
-    <title>ATG | V2</title>
+    <title>WHITE </title>
 
     <!-- Bootstrap -->
     <link href="<?php echo base_url() ; ?>assets/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="<?php echo base_url() ; ?>assets/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.0/css/all.css">
+
     <!-- NProgress -->
     <link href="<?php echo base_url() ; ?>assets/vendors/nprogress/nprogress.css" rel="stylesheet">
     <!-- iCheck -->
@@ -73,7 +75,7 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="company" class="site_title"><i class="fa fa-database"></i> <span>ATG!</span></a>
+              <a href="company" class="site_title"><i class="fa fa-database"></i> <span>WHITE!</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -100,6 +102,7 @@
 				<li><a href="<?php echo base_url() ; ?>index.php/company"><i class="fa fa-dashboard"></i> Dashboard</a></li>
 				<li><a href="<?php echo base_url() ; ?>index.php/stationmgt"><i class="fa fa-tint"></i> My Stations </a></li>
 				<li><a href="<?php echo base_url() ; ?>index.php/controllermgt"><i class="fa fa-keyboard-o"></i> My Controllers </a></li>
+				<li><a href="<?php echo base_url() ; ?>index.php/pumpmgt"><i class="fas fa-gas-pump"></i> &nbsp; My Pumps </a></li>
 				<li><a href="<?php echo base_url() ; ?>index.php/tankmgt"><i class="fa fa-database"></i> My Tanks </a></li>
 				<li><a href="<?php echo base_url() ; ?>index.php/usermgt"><i class="fa fa-user"></i> My Users </a></li>
 				<li><a href="<?php echo base_url() ; ?>index.php/settings"><i class="fa fa-wrench"></i> Settings</a></li>
@@ -246,13 +249,13 @@
                       </a>
                     </li>
                     <!-- <li><a href="javascript:;">Help</a></li> -->
-                    <li><a href="<?php echo base_url() ; ?>index.php/logout"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                    <li><a href="<?php echo base_url() ; ?>index.php/logout"><i class="fas fa-sign-out-alt pull-right"></i> Log Out</a></li>
                   </ul>
                 </li>
 
                 <li role="presentation" class="dropdown">
                   <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
-                    <i class="fa fa-envelope-o"></i>
+                    <i class="fa fa-envelope "></i>
                     <span class="badge bg-green" id="notifCount" ></span>
                   </a>
                   <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
@@ -386,28 +389,34 @@ switch (lastthing) {
 
 			break;
 
-  case "tankmgt":
+  case "pumpmgt":
 
 		$("#smenu li:nth-child(4)").addClass("active");
+		
+			break;
+  
+	case "tankmgt":
+
+		$("#smenu li:nth-child(5)").addClass("active");
 		
 			break;
 		
 		
   case "usermgt":
 	
-		$("#smenu li:nth-child(5)").addClass("active");
+		$("#smenu li:nth-child(6)").addClass("active");
 		
 			break;
 
   case "settings":
 
-		$("#smenu li:nth-child(6)").addClass("active");
+		$("#smenu li:nth-child(7)").addClass("active");
 
 			break;
 	
 	case "actLog":
 
-		$("#smenu li:nth-child(7)").addClass("active");
+		$("#smenu li:nth-child(8)").addClass("active");
 	 
 			break;
 

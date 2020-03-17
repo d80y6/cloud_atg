@@ -1,62 +1,66 @@
-<?php    $this->load->view('station/header') ; ?>
+<?php    $this->load->view('station/head') ; ?>
 
 
+
+
+<div class="page-header">
+              <h3 class="page-title">
+                <span class="page-title-icon bg-gradient-primary text-white mr-2">
+                  <i class="mdi mdi-file-document"></i>
+                </span> Activity Logs </h3>
+              <nav aria-label="breadcrumb">
+                <ul class="breadcrumb">
+                  <li class="breadcrumb-item active" aria-current="page">
+					<span></span><i id="nodeName" class="text-default"></i> &nbsp;
+					<!-- <i class="mdi mdi-alert-circle-outline icon-sm text-primary align-middle"></i> -->
+                  </li>
+                </ul>
+              </nav>
+			</div>
 
 
 <div class="right_col" role="main">
 <!-- dummy test page yo -->
 
 
-  <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="x_panel">
-                  <div class="x_title">
-                    <h2>Activity Logs <small>View Logs Here</small></h2>
-                    <ul class="nav navbar-right  pull-right">
-						<li class="pull-right "><a style="padding:5px;" class="text-warning" href="#" onclick="loadAlogtable()"><i class="fa fa-refresh"></i> Refresh</a></li>
-										 <!-- <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li> -->
-                      <!-- <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a> -->
-                      <!-- <li><i class="fa fa-chevron-up"></i> -->
-                      <!-- </li> -->
-                      <!-- <li class="dropdown pull-right">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                        <ul class="dropdown-menu"  role="menu">
-                          
-                          <li><a href="#" onclick="loadAlogtable()"><i class="fa fa-refresh"></i> Refresh</a>
-                          </li>
-                        </ul>
-                      </li> -->
-                     
-                    </ul>
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">
-                    <table id="tblactLog" class="table table-hover">
-						<thead> 
-								<tr>
-								<th>User</th>
-								<th> Activity</th>
-								<th>Company</th>
-								<th>Station</th>
-								<th>Timestamp</th>
 
-								<!-- <th class="text-center"></th> -->
-								</tr>
-								
-						</thead>
-                      <tbody>
-                     
-                      </tbody>
-                    </table>
+<div class="row">
+	<div class="col-md-12 grid-margin stretch-card ">
+		<div class="card ">
+			<div class="card-body">
+				<div class="clearfix">
+					<h4 class="card-title float-left">Activities <hr> </h4>
+					
+					<h4 class="card-title float-right" id="addnew">
+					<p class="float-right"><a style="padding:5px;" class="text-warning" href="#" onclick="loadAlogtable()"><i class="fa fa-refresh"></i> Refresh</a></p></h4>
+					<div id="visit-sale-chart-legend" class="rounded-legend legend-horizontal legend-top-right float-right"></div>
+				</div>
+			
+<div style="overflow-x:auto;">
 
-                  </div>
-                </div>
-              </div>
+		<table id="tblactLog" class="table table-hover responsive">
+			<thead> 
+					<tr>
+					<th>User</th>
+					<th> Activity</th>
+					<th>Company</th>
+					<th>Station</th>
+					<th>Timestamp</th>
 
-              <div class="clearfix"></div>
-
-
+					</tr>
+					
+			</thead>
+			<tbody>
+			
+			</tbody>
+		</table>
 </div>
+		
+				
+			</div>
+		</div>
+	</div>
+ </div>
 
 
 
@@ -418,5 +422,5 @@
 <!-- ======================================================= -->
 
 
-<?php    $this->load->view('station/footer') ; ?>
+<?php    $this->load->view('station/foot') ; ?>
 <?php    $this->load->view('station/scriptActLogs') ; ?>

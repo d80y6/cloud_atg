@@ -1,4 +1,23 @@
-<?php    $this->load->view('company/header') ; ?>
+<?php    $this->load->view('company/head') ; ?>
+
+
+
+
+
+<div class="page-header">
+              <h3 class="page-title">
+                <span class="page-title-icon bg-gradient-primary text-white mr-2">
+                  <i class="mdi mdi-account"></i>
+                </span> Profile </h3>
+              <nav aria-label="breadcrumb">
+                <ul class="breadcrumb">
+                  <li class="breadcrumb-item active" aria-current="page">
+					<span></span><i id="nodeName" class="text-default"></i> &nbsp; 
+					<!-- <i class="mdi mdi-alert-circle-outline icon-sm text-primary align-middle"></i> -->
+                  </li>
+                </ul>
+              </nav>
+						</div>
 
 
 
@@ -8,10 +27,16 @@
 
 
 
+<div class="row">
+	<div class="col-md-12 grid-margin stretch-card ">
+		<div class="card ">
+			<div class="card-body">
+
+
     <div class="col-md-12 col-sm-12 col-xs-12">
 		<div class="x_panel">
 			<div class="x_title">
-			<h2><i class="fa fa-bars"></i> Profile <small>User Profile Settings</small></h2>
+			<h4> Profile <small>User Profile Settings</small></h4>
 			<ul class="nav navbar-right panel_toolbox">
 				
 			</ul>
@@ -152,12 +177,23 @@
 			</div>
 		</div>
 	</div>
-					
+
+	
+
+	
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+
+
 
 
 </div>
 
 
-<?php    $this->load->view('company/footer') ; ?>
+<?php    $this->load->view('company/foot') ; ?>
 <?php    $this->load->view('company/scriptProfmgt') ; ?>
 

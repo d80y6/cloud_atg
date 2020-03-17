@@ -362,10 +362,10 @@ loadDash();
 			_u.forEach(rlogs, function(val, key) {
 
 			
-			rlog = `		<li>
+			rlog = `		<li style="background-color:#fafafa;margin-bottom:5px">
 				<a>
 					<span class="image">
-					<i class="fa fa-list"></i>
+					<i class="fa fa-list text-info"></i>
 					</span>
 					<span>
 						<span>`+val.user+`</span>
@@ -404,15 +404,17 @@ loadDash();
 
 			_u.forEach(idevs, function(val, key) {
 
+				// <span class="col-md-3 col-sm-3 col-xs-3 info-number">
+				// 	<i class="fa fa-keyboard-o fa-3x"></i>
+				// 	<span class="badge bg-red" >I</span>
+
+				// 	</span>
+
 			
 			idev = `	<li  style="max-height:55px">
 				<a class="row" style="width:100%">
-					<span class="col-md-3 col-sm-3 col-xs-3 info-number">
-					<i class="fa fa-keyboard-o fa-3x"></i>
-					<span class="badge bg-red" >I</span>
-
-					</span>
-					<span class="col-md-9 col-sm-9 col-xs-9">
+					
+					<span class="col-md-12 col-sm-12 col-xs-12">
 						<b>Device</b>: <i class="pull-right">`+val.contId+`</i>
 						<br>
 						<b>Station</b>: <i class="pull-right">`+val.statName+`</i>
@@ -453,21 +455,21 @@ loadDash();
 			_u.forEach(idevs, function(val, key) {
 				tankstat = (val.status =='inactive') ? 'I' : 'F' ;
 
-			
-			idev = `	<li  style="max-height:55px">
-					<a class="row" style="width:100%">
-						<span class="col-md-4 col-sm-4 col-xs-4">
-						<i class="fa fa-database fa-3x"></i>
-						<span class="badge bg-red" style="
-						font-size: 10px;
-						font-weight: 400;
-						line-height: 13px;
-						padding: 2px 6px;
-						position: absolute;
-						right: 30px;
-						top: -1px;">`+tankstat+`</span>
+						// <span class="col-md-4 col-sm-4 col-xs-4">
+						// <i class="fa fa-database fa-3x text-primary"></i>
+						// <span class="badge bg-red" style="
+						// font-size: 10px;
+						// font-weight: 400;
+						// line-height: 13px;
+						// padding: 2px 6px;
+						// position: absolute;
+						// right: 30px;
+						// top: -1px;"></span>
 
-						</span>
+						// </span>
+			
+			idev = `	<li  style="max-height:55px; background-color:#fafafa; margin-bottom:5px">
+					<a class="row" style="width:100%">
 						<span class="col-md-8 col-sm-8 col-xs-8">
 							<b>Tank</b>: <i class="pull-right">`+val.tank_name+`</i>
 							<br>
@@ -867,10 +869,10 @@ if ($('#myDashLineChart').length ){
 				labels: ["7 Days Ago", "6 Days Ago", "5 Days Ago", "4 Days Ago", "3 Days Ago", "2 Days Ago", "1 Day Ago"],
 				datasets: [{
 				label: "PMS",
-				backgroundColor: "rgba(38, 185, 154, 0.31)",
-				borderColor: "rgba(38, 185, 154, 0.7)",
-				pointBorderColor: "rgba(38, 185, 154, 0.7)",
-				pointBackgroundColor: "rgba(38, 185, 154, 0.7)",
+				backgroundColor: "rgba(25, 138, 227, 0.31)",
+				borderColor: "rgba(25, 138, 227, 0.7)",
+				pointBorderColor: "rgba(25, 138, 227, 0.7)",
+				pointBackgroundColor: "rgba(25, 138, 227, 0.7)",
 				pointHoverBackgroundColor: "#fff",
 				pointHoverBorderColor: "rgba(220,220,220,1)",
 				pointBorderWidth: 1,
@@ -878,10 +880,10 @@ if ($('#myDashLineChart').length ){
 				data: linePMS
 				}, {
 				label: "DPK",
-				backgroundColor: "rgba(3, 88, 106, 0.3)",
-				borderColor: "rgba(3, 88, 106, 0.70)",
-				pointBorderColor: "rgba(3, 88, 106, 0.70)",
-				pointBackgroundColor: "rgba(3, 88, 106, 0.70)",
+				backgroundColor: "rgba(254, 124, 150, 0.3)",
+				borderColor: "rgba(254, 124, 150, 0.70)",
+				pointBorderColor: "rgba(254, 124, 150, 0.70)",
+				pointBackgroundColor: "rgba(254, 124, 150, 0.70)",
 				pointHoverBackgroundColor: "#fff",
 				pointHoverBorderColor: "rgba(151,187,205,1)",
 				pointBorderWidth: 1,
@@ -890,10 +892,10 @@ if ($('#myDashLineChart').length ){
 
 				}, {
 				label: "AGO",
-				backgroundColor: "rgba(23, 8, 106, 0.3)",
-				borderColor: "rgba(23, 8, 106, 0.70)",
-				pointBorderColor: "rgba(23, 8, 106, 0.70)",
-				pointBackgroundColor: "rgba(23, 8, 106, 0.70)",
+				backgroundColor: "rgba(254, 215, 19, 0.3)",
+				borderColor: "rgba(254, 215, 19, 0.70)",
+				pointBorderColor: "rgba(254, 215, 19, 0.70)",
+				pointBackgroundColor: "rgba(254, 215, 19, 0.70)",
 				pointHoverBackgroundColor: "#fff",
 				pointHoverBorderColor: "rgba(151,187,205,1)",
 				pointBorderWidth: 1,

@@ -173,20 +173,20 @@ if(!function_exists('companyBtn'))
 
 		if($status == 'new'){
 
-			// <i class='fa fa-ban text-secondary' title='Disable' onclick='disable(".$id.")'> </i> 
-			$str = "<i  class=' fa fa-file-text-o text-primary' title='View/Edit' onclick='edit(".$id.")'> </i> 
+			// <i class='fas fa-ban text-secondary' title='Disable' onclick='disable(".$id.")'> </i> 
+			$str = "<i  class=' fas fa-file-alt text-primary' title='View/Edit' onclick='edit(".$id.")'> </i> 
 			<i class='rem fa fa-trash text-danger' title='Delete' onclick='confirmDelete(".$id.")'> </i> 
 			<i class='rem fa fa-check text-secondary' title='Approve' onclick='approve(".$id.")'> </i> 
 			<i class='rem fa fa-close text-danger' title='Reject' onclick='toggleApprove(".$id.",0)'> </i> ";
 		}
 		elseif($status == 'inactive'){
-			$str = "<i class=' fa fa-file-text-o text-primary' title='View/Edit' onclick='edit(".$id.")'> </i> 
-			<i class='rem fa fa-check-square-o text-secondary' title='Enable' onclick='enable(".$id.")'> </i> 
+			$str = "<i class=' fas fa-file-alt text-primary' title='View/Edit' onclick='edit(".$id.")'> </i> 
+			<i class='rem fas fa-check-square text-secondary' title='Enable' onclick='enable(".$id.")'> </i> 
 			<i class='rem fa fa-trash text-danger' title='Delete' onclick='confirmDelete(".$id.")'> </i>";
 		}
 		else{
-			$str = "<i class=' fa fa-file-text-o text-primary' title='View/Edit' onclick='edit(".$id.")'> </i> 
-			<i class='rem fa fa-ban text-secondary' title='Disable' onclick='disable(".$id.")'> </i> 
+			$str = "<i class=' fas fa-file-alt text-primary' title='View/Edit' onclick='edit(".$id.")'> </i> 
+			<i class='rem fas fa-ban text-secondary' title='Disable' onclick='disable(".$id.")'> </i> 
 			<i class='rem fa fa-trash text-danger' title='Delete' onclick='confirmDelete(".$id.")'> </i>";
 		}
 
@@ -202,11 +202,11 @@ if(!function_exists('companyNameMgt'))
 
 		if($status == 'new'){
 
-			$str = $coy." <span class='badge bg-green pull-right'>New</span>";
+			$str = $coy." <span class='badge badge-success bg-green pull-right'>New</span>";
 		}
 		elseif($status == 'inactive'){
 
-			$str = $coy." <span class='badge bg-red pull-right'>Inactive</span>";
+			$str = $coy." <span class='badge badge-danger bg-red pull-right'>Inactive</span>";
 		}
 		else{
 			$str = $coy;
@@ -225,18 +225,18 @@ if(!function_exists('stationBtn'))
     function stationBtn($id,$status)
     {
 		
-			// $str = "<i class='fa fa-file-text-o text-primary' title='View/Edit' onclick='edit(".$id.")'> </i> 
-			// <i class='fa fa-ban text-secondary' title='Disable' onclick='disable(".$id.")'> </i> 
+			// $str = "<i class='fas fa-file-alt text-primary' title='View/Edit' onclick='edit(".$id.")'> </i> 
+			// <i class='fas fa-ban text-secondary' title='Disable' onclick='disable(".$id.")'> </i> 
 			// <i class='fa fa-trash text-danger' title='Delete' onclick='confirmDelete(".$id.")'> </i>";
 
 			if($status == 'inactive'){
-				$str = "<i class='fa fa-file-text-o text-primary' title='View/Edit' onclick='edit(".$id.")'> </i> 
-				<i class='rem fa fa-check-square-o text-secondary' title='Enable' onclick='enable(".$id.")'> </i> 
+				$str = "<i class='fas fa-file-alt text-primary' title='View/Edit' onclick='edit(".$id.")'> </i> 
+				<i class='rem fas fa-check-square text-secondary' title='Enable' onclick='enable(".$id.")'> </i> 
 				<i class='rem fa fa-trash text-danger' title='Delete' onclick='confirmDelete(".$id.")'> </i>";
 			}
 			else{
-				$str = "<i class='fa fa-file-text-o text-primary' title='View/Edit' onclick='edit(".$id.")'> </i> 
-				<i class='rem fa fa-ban text-secondary' title='Disable' onclick='disable(".$id.")'> </i> 
+				$str = "<i class='fas fa-file-alt text-primary' title='View/Edit' onclick='edit(".$id.")'> </i> 
+				<i class='rem fas fa-ban text-secondary' title='Disable' onclick='disable(".$id.")'> </i> 
 				<i class='rem fa fa-trash text-danger' title='Delete' onclick='confirmDelete(".$id.")'> </i>";
 			}
 
@@ -253,7 +253,7 @@ if(!function_exists('nodeNameMgt'))
 
 		if($status == 'inactive'){
 
-			$str = $name." <span class='badge bg-red pull-right'>Inactive</span>";
+			$str = $name." <span class='badge badge-danger bg-red pull-right'>Inactive</span>";
 		}
 		else{
 			$str = $name;
@@ -271,17 +271,17 @@ if(!function_exists('controllerBtn'))
     function controllerBtn($id,$status)
     {
 		
-			// $str = "<i class='fa fa-file-text-o text-primary' title='View/Edit' onclick='edit(".$id.")'> </i> 
-			// <i class='fa fa-ban text-secondary' title='Disable' onclick='disable(".$id.")'> </i> 
+			// $str = "<i class='fas fa-file-alt text-primary' title='View/Edit' onclick='edit(".$id.")'> </i> 
+			// <i class='fas fa-ban text-secondary' title='Disable' onclick='disable(".$id.")'> </i> 
 			// <i class='fa fa-trash text-danger' title='Delete' onclick='confirmDelete(".$id.")'> </i>";
 			if($status == 'inactive'){
-				$str = "<i class='fa fa-file-text-o text-primary' title='View/Edit' onclick='edit(".$id.")'> </i> 
-				<i class='rem fa fa-check-square-o text-secondary' title='Enable' onclick='enable(".$id.")'> </i> 
+				$str = "<i class='fas fa-file-alt text-primary' title='View/Edit' onclick='edit(".$id.")'> </i> 
+				<i class='rem fas fa-check-square text-secondary' title='Enable' onclick='enable(".$id.")'> </i> 
 				<i class='rem fa fa-trash text-danger' title='Delete' onclick='confirmDelete(".$id.")'> </i>";
 			}
 			else{
-				$str = "<i class='fa fa-file-text-o text-primary' title='View/Edit' onclick='edit(".$id.")'> </i> 
-				<i class='rem fa fa-ban text-secondary' title='Disable' onclick='disable(".$id.")'> </i> 
+				$str = "<i class='fas fa-file-alt text-primary' title='View/Edit' onclick='edit(".$id.")'> </i> 
+				<i class='rem fas fa-ban text-secondary' title='Disable' onclick='disable(".$id.")'> </i> 
 				<i class='rem fa fa-trash text-danger' title='Delete' onclick='confirmDelete(".$id.")'> </i>";
 			}
 
@@ -291,28 +291,63 @@ if(!function_exists('controllerBtn'))
 
 
 
+if(!function_exists('pumpBtn'))
+{
+    function pumpBtn($id,$status)
+    {
+		
+			$str = "<i class='fas fa-file-alt text-primary' title='View/Edit' onclick='edit(".$id.")'> </i> 
+			<i class='rem fas fa-ban text-secondary' title='Disable' onclick='disable(".$id.")'> </i> 
+			<i class='rem fa fa-trash text-danger' title='Delete' onclick='confirmDelete(".$id.")'> </i> 
+			<i class=' fa fa-qrcode text-default' title='Current Readings' onclick='currData(".$id.")'> </i> 
+			";
+			// <i class='rem fa fa-bar-chart-o text-warning' title='Upload Calibration' onclick='calChart(".$id.")'> </i> 
+
+			if($status == 'inactive'){
+				$str = "<i class='fas fa-file-alt text-primary' title='View/Edit' onclick='edit(".$id.")'> </i> 
+				<i class='rem fas fa-check-square text-secondary' title='Enable' onclick='enable(".$id.")'> </i> 
+				<i class='rem fa fa-trash text-danger' title='Delete' onclick='confirmDelete(".$id.")'> </i> 
+				<i class='fa fa-qrcode text-default' title='Current Readings' onclick='currData(".$id.")'> </i> 
+				";
+				// <i class='rem fa fa-bar-chart-o text-warning' title='Upload Calibration' onclick='calChart(".$id.")'> </i> 
+			}
+			else{
+				$str = "<i class='fas fa-file-alt text-primary' title='View/Edit' onclick='edit(".$id.")'> </i> 
+				<i class='rem fas fa-ban text-secondary' title='Disable' onclick='disable(".$id.")'> </i> 
+				<i class='rem fa fa-trash text-danger' title='Delete' onclick='confirmDelete(".$id.")'> </i> 
+				<i class='fa fa-qrcode text-default' title='Current Readings' onclick='currData(".$id.")'> </i> 
+				";
+				// <i class='rem fa fa-bar-chart-o text-warning' title='Upload Calibration' onclick='calChart(".$id.")'> </i> 
+			}
+			
+
+		return $str;
+	}
+}
+
+
 if(!function_exists('tankBtn'))
 {
     function tankBtn($id,$status)
     {
 		
-			$str = "<i class='fa fa-file-text-o text-primary' title='View/Edit' onclick='edit(".$id.")'> </i> 
-			<i class='rem fa fa-ban text-secondary' title='Disable' onclick='disable(".$id.")'> </i> 
+			$str = "<i class='fas fa-file-alt text-primary' title='View/Edit' onclick='edit(".$id.")'> </i> 
+			<i class='rem fas fa-ban text-secondary' title='Disable' onclick='disable(".$id.")'> </i> 
 			<i class='rem fa fa-trash text-danger' title='Delete' onclick='confirmDelete(".$id.")'> </i> 
 			<i class=' fa fa-qrcode text-default' title='Current Readings' onclick='currData(".$id.")'> </i> 
 			<i class='rem fa fa-bar-chart-o text-warning' title='Upload Calibration' onclick='calChart(".$id.")'> </i> 
 			";
 
 			if($status == 'inactive'){
-				$str = "<i class='fa fa-file-text-o text-primary' title='View/Edit' onclick='edit(".$id.")'> </i> 
-				<i class='rem fa fa-check-square-o text-secondary' title='Enable' onclick='enable(".$id.")'> </i> 
+				$str = "<i class='fas fa-file-alt text-primary' title='View/Edit' onclick='edit(".$id.")'> </i> 
+				<i class='rem fas fa-check-square text-secondary' title='Enable' onclick='enable(".$id.")'> </i> 
 				<i class='rem fa fa-trash text-danger' title='Delete' onclick='confirmDelete(".$id.")'> </i> 
 				<i class='fa fa-qrcode text-default' title='Current Readings' onclick='currData(".$id.")'> </i> 
 				<i class='rem fa fa-bar-chart-o text-warning' title='Upload Calibration' onclick='calChart(".$id.")'> </i> ";
 			}
 			else{
-				$str = "<i class='fa fa-file-text-o text-primary' title='View/Edit' onclick='edit(".$id.")'> </i> 
-				<i class='rem fa fa-ban text-secondary' title='Disable' onclick='disable(".$id.")'> </i> 
+				$str = "<i class='fas fa-file-alt text-primary' title='View/Edit' onclick='edit(".$id.")'> </i> 
+				<i class='rem fas fa-ban text-secondary' title='Disable' onclick='disable(".$id.")'> </i> 
 				<i class='rem fa fa-trash text-danger' title='Delete' onclick='confirmDelete(".$id.")'> </i> 
 				<i class='fa fa-qrcode text-default' title='Current Readings' onclick='currData(".$id.")'> </i> 
 				<i class='rem fa fa-bar-chart-o text-warning' title='Upload Calibration' onclick='calChart(".$id.")'> </i> ";
@@ -329,18 +364,18 @@ if(!function_exists('userBtn'))
     function userBtn($id,$status)
     {
 		
-			// $str = "<i class='fa fa-file-text-o text-primary' title='View/Edit' onclick='edit(".$id.")'> </i> 
-			// <i class='fa fa-ban text-secondary' title='Disable' onclick='disable(".$id.")'> </i> 
+			// $str = "<i class='fas fa-file-alt text-primary' title='View/Edit' onclick='edit(".$id.")'> </i> 
+			// <i class='fas fa-ban text-secondary' title='Disable' onclick='disable(".$id.")'> </i> 
 			// <i class='fa fa-trash text-danger' title='Delete' onclick='confirmDelete(".$id.")'> </i>";
 
 			if($status == 'inactive'){
-				$str = "<i class='fa fa-file-text-o text-primary' title='View/Edit' onclick='edit(".$id.")'> </i> 
-				<i class='rem fa fa-check-square-o text-secondary' title='Enable' onclick='enable(".$id.")'> </i> 
+				$str = "<i class='fas fa-file-alt text-primary' title='View/Edit' onclick='edit(".$id.")'> </i> 
+				<i class='rem fas fa-check-square text-secondary' title='Enable' onclick='enable(".$id.")'> </i> 
 				<i class='rem fa fa-trash text-danger' title='Delete' onclick='confirmDelete(".$id.")'> </i>";
 			}
 			else{
-				$str = "<i class='fa fa-file-text-o text-primary' title='View/Edit' onclick='edit(".$id.")'> </i> 
-				<i class='rem fa fa-ban text-secondary' title='Disable' onclick='disable(".$id.")'> </i> 
+				$str = "<i class='fas fa-file-alt text-primary' title='View/Edit' onclick='edit(".$id.")'> </i> 
+				<i class='rem fas fa-ban text-secondary' title='Disable' onclick='disable(".$id.")'> </i> 
 				<i class='rem fa fa-trash text-danger' title='Delete' onclick='confirmDelete(".$id.")'> </i>";
 			}
 

@@ -59,6 +59,10 @@ $route['ibafonLogs'] = 'base/ibafonLogs';
 $route['backup'] = 'base/backup';
 
 $route['testMail'] = 'base/testMail';
+
+$route['getReordersByAllTanks'] = 'base/getReordersByAllTanks';
+$route['getSalesByAllTanks'] = 'base/getSalesByAllTanks';
+$route['savecurrtankvol'] = 'base/savecurrtankvol';
 // ==========================cron==========================
 
 
@@ -102,6 +106,12 @@ $route['notLogs_loadtable'] = 'base/notLogs_loadtable';
 $route['notLogs_loadtable/(:any)'] = 'base/notLogs_loadtable/$1';
 $route['notifications'] = 'base/notifications';
 $route['notLog/(:any)'] = 'base/notLog/$1';
+
+
+$route['generalDashLoadHeavy'] = 'base/generalDashLoadHeavy';
+$route['generalCompanyHeavy'] = 'base/generalCompanyHeavy';
+$route['generalStationHeavy'] = 'base/generalStationHeavy';
+
 
 
 $route['general'] = 'base/general';
@@ -149,6 +159,28 @@ $route['editController'] = 'base/editController';
 $route['getControllers'] = 'base/getControllers';
 
 
+
+$route['pumpmgt'] = 'base/pumpmgt';
+$route['pumpmgt/(:any)'] = 'base/pumpmgt/$1';
+$route['pumps_loadtable'] = 'base/pumps_loadtable';
+$route['pumps_loadtable/(:any)'] = 'base/pumps_loadtable/$1';
+$route['deletePump/(:any)'] = 'base/deletePump/$1';
+$route['disablePump/(:any)'] = 'base/disablePump/$1';
+$route['enablePump/(:any)'] = 'base/enablePump/$1';
+$route['addPump'] = 'base/addPump';
+$route['getPump'] = 'base/getPump';
+$route['editPump'] = 'base/editPump';
+$route['getCurrentPumpData'] = 'base/getCurrentPumpData';
+$route['getPumpLogs'] = 'base/getPumpLogs';
+$route['getpumpNotifications'] = 'base/getpumpNotifications';
+
+$route['pumpAPILogin'] = 'base/pumpAPILogin';
+$route['getPumpLogsAPI'] = 'base/getPumpLogsAPI';
+
+$route['getCurrentStatPumpData'] = 'base/getCurrentStatPumpData';
+
+
+
 $route['tankmgt'] = 'base/tankmgt';
 $route['tankmgt/(:any)'] = 'base/tankmgt/$1';
 $route['tanks_loadtable'] = 'base/tanks_loadtable';
@@ -179,6 +211,8 @@ $route['getUser'] = 'base/getUser';
 $route['editUser'] = 'base/editUser';
 
 $route['landing'] = 'base/landing';
+
+$route['sendPacket'] = 'base/sendPacket';
 
 
 $route['default_controller'] = 'base';

@@ -1,55 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <!-- Meta, title, CSS, favicons, etc. -->
+    <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>ATG | V2</title>
+		<title>ATG | V2</title>
 
-    <!-- Bootstrap -->
-    <!-- <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"> -->
-    <link href="<?php echo base_url() ; ?>assets/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Font Awesome -->
-    <!-- <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet"> -->
-    <link href="<?php echo base_url() ; ?>assets/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-
-    <!-- NProgress -->
-    <!-- <link href="../vendors/nprogress/nprogress.css" rel="stylesheet"> -->
-    <link href="<?php echo base_url() ; ?>assets/vendors/nprogress/nprogress.css" rel="stylesheet">
-
-    <!-- Animate.css -->
-    <!-- <link href="../vendors/animate.css/animate.min.css" rel="stylesheet"> -->
-    <link href="<?php echo base_url() ; ?>assets/vendors/animate.css/animate.min.css" rel="stylesheet">
-
-    <!-- Custom Theme Style -->
-    <!-- <link href="../build/css/custom.min.css" rel="stylesheet"> -->
-    <link href="<?php echo base_url() ; ?>assets/build/css/custom.min.css" rel="stylesheet">
-
+		<!-- plugins:css -->
+    <link rel="stylesheet" href="<?php echo base_url() ; ?>asset/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="<?php echo base_url() ; ?>asset/vendors/css/vendor.bundle.base.css">
+    <!-- endinject -->
+    <!-- Plugin css for this page -->
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <!-- endinject -->
+    <!-- Layout styles -->
+    <link rel="stylesheet" href="<?php echo base_url() ; ?>asset/css/style.css">
+    <!-- End layout styles -->
+    <link rel="shortcut icon" href="<?php echo base_url() ; ?>asset/images/favicon.png" />
   </head>
+  <body>
+    <div class="container-scroller">
+      <div class="container-fluid page-body-wrapper full-page-wrapper">
+        <div class="content-wrapper d-flex align-items-center auth">
+          <div class="row flex-grow">
+            <div class="col-lg-4 mx-auto">
+              <div class="auth-form-light text-left p-5">
+                <div class="brand-logo">
+						<center>	<h1>	<i class="mdi mdi-bulldozer text-primary"></i> <font class="text-primary">ATG</font> </a></h1></center>
+						<hr>
 
-  <body class="login">
-    <div>
-      <a class="hiddenanchor" id="signup"></a>
-      <a class="hiddenanchor" id="signin"></a>
+								</div>
+                <h4>Hello! Sign in to Begin.</h4>
+                <!-- <h6 class="font-weight-light">Sign in to Begin.</h6> -->
+                <!-- <form class="pt-3"> -->
 
-      <div class="login_wrapper">
-        <div class="animate form login_form">
-          <section class="login_content">
-            <!-- <form> -->
-			<?php 
-			// if ($id == null){ 
-			echo form_open('login_submit'); 
-		// } 
-			
-			?>
-              <h1>Log in </h1>
+								<?php 
+									// if ($id == null){ 
+									echo form_open('login_submit'); 
+								// } 
+									
+									?>
 
-			   <!-- <div class="form-group"> -->
-										<?php if(isset($validationError)){ ?>
+									<?php if(isset($validationError)){ ?>
 									<div class="alert alert-danger">
 										<?php echo $validationError?>
 									</div>
@@ -60,78 +54,48 @@
 									</div>
 									<?php } ?>
 
-              <div>
-                <input type="text" name="userId" id="userId" class="form-control" placeholder="Email" required autofocus />
+
+								<div class="form-group">
+                    <input type="text" name="userId" id="userId" style="border-radius:4px" class="form-control form-control-lg"  placeholder="Email">
+                  </div>
+                  <div class="form-group">
+                    <input type="password" name="password" id="password" style="border-radius:4px" class="form-control form-control-lg"  placeholder="Password">
+                  </div>
+                  <div class="mt-3">
+                    <button type="submit" class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn" href="">SIGN IN</button>
+                  </div>
+                  <div class="my-2 d-flex justify-content-between align-items-center">
+                    <div class="form-check">
+                      <label class="form-check-label text-muted">
+                        <!-- <input type="checkbox" class="form-check-input"> Keep me signed in </label> -->
+                    </div>
+                    <!-- <a href="#" class="auth-link text-black">Forgot password?</a> -->
+                  </div>
+                  <!-- <div class="mb-2">
+                    <button type="button" class="btn btn-block btn-facebook auth-form-btn">
+                      <i class="mdi mdi-facebook mr-2"></i>Connect using facebook </button>
+                  </div> -->
+                  <div class="text-center mt-4 font-weight-light"> Don't have an account? <a href="<?php echo base_url() ; ?>#join" class="text-primary">Create</a>
+                  </div>
+                </form>
               </div>
-              <div>
-                <input type="password" name="password" id="password" class="form-control" placeholder="Password" required />
-              </div>
-              <div>
-                <!-- <a class="btn btn-default submit" href="index.html">Log in</a> -->
-                <button type="submit" class="btn btn-default submit" >Log in</button>
-                <a class="reset_pass" href="#">Forgot Password?</a>
-              </div>
-
-              <div class="clearfix"></div>
-
-              <div class="separator">
-                <p class="change_link">New here?
-                  <!-- <a href="#signup" class="to_register"> Create Account </a> -->
-                  <a href="landing#join" class="to_register"> Create Account </a>
-                </p>
-
-                <div class="clearfix"></div>
-                <br />
-
-                <div>
-                  <!-- <h1><i class="fa fa-paw"></i> Gentelella Alela!</h1> -->
-                  <!-- <p>©2016 All Rights Reserved. Gentelella Alela! is a Bootstrap 3 template. Privacy and Terms</p> -->
-                  <p>Copyright &copy; Asharami Synergy PLC. <?php echo date("Y")?></p>
-
-                </div>
-              </div>
-            </form>
-          </section>
+            </div>
+          </div>
         </div>
-
-        <div id="register" class="animate form registration_form">
-          <section class="login_content">
-            <form>
-              <h1>Create Account</h1>
-              <div>
-                <input type="text" class="form-control" placeholder="Username" required="" />
-              </div>
-              <div>
-                <input type="email" class="form-control" placeholder="Email" required="" />
-              </div>
-              <div>
-                <input type="password" class="form-control" placeholder="Password" required="" />
-              </div>
-              <div>
-                <a class="btn btn-default submit" href="index.html">Submit</a>
-              </div>
-
-              <div class="clearfix"></div>
-
-              <div class="separator">
-                <p class="change_link">Already a member ?
-                  <a href="#signin" class="to_register"> Log in </a>
-                </p>
-
-                <div class="clearfix"></div>
-                <br />
-
-                <div>
-                  <!-- <h1><i class="fa fa-paw"></i> Gentelella Alela!</h1> -->
-                  <!-- <p>©2016 All Rights Reserved. Gentelella Alela! is a Bootstrap 3 template. Privacy and Terms</p> -->
-                  <p>Copyright &copy; Asharami Synergy PLC. <?php echo date("Y")?></p>
-
-                </div>
-              </div>
-            </form>
-          </section>
-        </div>
+        <!-- content-wrapper ends -->
       </div>
+      <!-- page-body-wrapper ends -->
     </div>
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script src="<?php echo base_url() ; ?>asset/vendors/js/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="<?php echo base_url() ; ?>asset/js/off-canvas.js"></script>
+    <script src="<?php echo base_url() ; ?>asset/js/hoverable-collapse.js"></script>
+    <script src="<?php echo base_url() ; ?>asset/js/misc.js"></script>
+    <!-- endinject -->
   </body>
 </html>

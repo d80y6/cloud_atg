@@ -214,6 +214,8 @@ class base_model extends CI_Model {
 	}
 
 
+
+
 	function editUser($id){
 
 		$new_data = $this->input->post();
@@ -281,6 +283,392 @@ class base_model extends CI_Model {
 	}
 
 
+	// ==========================================pumps=============================================================
+	
+	function load_pumps($id = null){
+		$company = $this->session->userdata('company');
+		$station = null;
+		if(isset($id) && $id != null && $id != 0){
+			$station = $id;
+		}
+		else{
+			$station =  $this->session->userdata('station');
+
+		}
+		
+		
+		if(isset($company) && $company != null && $company != 0){
+
+			if(isset($station) && $station != null && $station != 0){
+					$this->datatables->where('station', $station);
+			}
+			else{
+
+					
+				$statIds = null;
+				
+			$stats = $this->stationGet(null,$company);
+			if(count($stats) > 0){
+				$statIds = array_column($stats, 'station_id');
+				
+				// var_dump($statIds);
+				$this->datatables->where_in('station', $statIds);
+
+			}
+			else{
+
+				$this->datatables->where('station', $statIds);
+				
+			}
+
+		}
+	
+		}
+			
+				
+
+		$this->datatables->select('pump_name, product, manufacturer, model, status, station, created, pID');
+		
+		$this->datatables->where('status !=', "deleted");
+		
+		
+				
+		$this->datatables->from('pumps');
+	
+		// $this->db->order_by("del_time", "desc");
+		// $this->db->order_by("created", "desc");
+	
+		$this->load->helper('base_helper');
+		$this->datatables->edit_column('pID', '$1','pumpBtn(pID,status)');
+		
+		// $this->datatables->edit_column('device_name', '$1','controllerMgt(device_id,device_name)');
+		$this->datatables->edit_column('pump_name', '$1','nodeNameMgt(pump_name, status)');
+		
+		$this->datatables->edit_column('station', '$1','getStat(station)');
+		// $this->datatables->edit_column('height', '$1','numbForm(height)');
+
+		
+		// $this->datatables->unset_column('device_id');
+		$this->datatables->unset_column('status');
+
+		
+	
+		return $this->datatables->generate();
+	}
+
+
+
+	function addPumpLogs($obj = null){
+
+		$new_data = $obj;
+	
+	  $res = $this->db->insert('pump_logs', $new_data);
+	  return $res;
+	}
+
+
+
+	function getStartDate($connID){
+	
+		$this->db->select_max('datetime','max');
+		$this->db->where('pID', $connID);
+		$query = $this->db->get('pump_logs');
+
+		// var_dump($query->result_array());
+		return $query->result_array()[0]['max'];
+
+
+	}
+
+
+
+
+	function getRangePumpLogs( $num = null, $count = null, $date = null,$from = null,$to = null, $prod=null){
+
+		
+		// if(isset($num) && $num != null && $num != 0){
+		// 	var_dump($num);
+		if(count($num) > 0){
+
+			$this->db->where_in('pID', $num);
+		}
+		else{
+			
+			$this->db->where('pID', null);
+		}
+
+		// }
+
+
+		if(isset($from) && $from != null && $from != 0){
+			$this->db->where('datetime >=', $from);
+		}
+		if(isset($to) && $to != null && $to != 0){
+			$this->db->where('datetime <=', $to);
+		}
+
+		// if(isset($prod) && $prod != null && $prod != 0){
+			$this->db->where('prod ', $prod);
+		// }
+
+
+		if($count!=null){
+			// $this->db->like('timestamp', $date);
+			$query = $this->db->get('pump_logs',$count);
+		}
+		else{
+			$query = $this->db->get('pump_logs');
+
+		}
+        // $query = $this->db->get('sLogs', 1);
+
+
+         if (count($query->result_array()) != 0){
+			//  var_dump($query->result_array()[0]);
+             return $query->result_array();
+		 }
+		 else{
+			return "2";         
+		 }
+        
+        return "7";         
+		}
+
+
+		
+	function getPumpLogs( $num = null, $count = null, $date = null,$from = null,$to = null, $prod=null){
+
+            
+        if($num != null && $num != "" ){
+
+        $this->db->where('pID', $num);
+		// $this->db->where('log_decoded', "inventory");
+
+
+		if(isset($from) && $from != null && $from != 0){
+			$this->db->where('datetime >=', $from);
+		}
+		if(isset($to) && $to != null && $to != 0){
+			$this->db->where('datetime <=', $to);
+		}
+
+		if(isset($prod) && $prod != null && $prod != 0){
+			$this->db->where('prod ', $prod);
+		}
+
+
+		if($count!=null){
+			// $this->db->like('timestamp', $date);
+			$query = $this->db->get('pump_logs',$count);
+		}
+		else{
+			$query = $this->db->get('pump_logs',15);
+
+		}
+        // $query = $this->db->get('sLogs', 1);
+
+
+         if (count($query->result_array()) != 0){
+			//  var_dump($query->result_array()[0]);
+             return $query->result_array();
+		 }
+		 else{
+			return "2";         
+		 }
+        }
+        return "7";         
+		}
+
+
+	function getPump($id){
+
+		$this->db->where('status !=', "deleted");
+		$this->db->where('pID', $id);
+		
+		$query = $this->db->get('pumps');
+	
+		return $query->result_array();
+	
+	}
+	
+	function getPumpsByStat($id = null){
+
+		$company = $this->session->userdata('company');
+		// $station = $this->session->userdata('station');
+		$station = null;
+		if(isset($id) && $id != null && $id != 0){
+			$station = $id;
+		}
+		else{
+			$station =  $this->session->userdata('station');
+
+		}
+
+
+		if(isset($company) && $company != null && $company != 0){
+
+			if(isset($station) && $station != null && $station != 0){
+					$this->datatables->where('station', $station);
+			}
+			else{
+
+					
+				$statIds = null;
+				
+			$stats = $this->stationGet(null,$company);
+			if(count($stats) > 0){
+				$statIds = array_column($stats, 'station_id');
+				
+				// var_dump($statIds);
+				$this->datatables->where_in('station', $statIds);
+
+			}
+			else{
+
+				$this->datatables->where('station', $statIds);
+				
+			}
+
+		}
+	
+		}
+
+
+
+		$this->db->where('status !=', "deleted");
+
+		// $this->db->where('station', $stat);
+
+		// $this->db->where('pID', $id);
+		
+		$query = $this->db->get('pumps');
+	
+		return $query->result_array();
+	
+	}
+	
+	function getPumps($prod = null){
+
+		$this->db->where('status !=', "deleted");
+
+		
+		// $this->db->where('pID', $id);
+		
+		$query = $this->db->get('pumps');
+	
+		return $query->result_array();
+	
+	}
+
+	function addPump(){
+
+		$new_data = $this->input->post();
+	
+	  $res = $this->db->insert('pumps', $new_data);
+	  return $res;
+	}
+
+	function editPump($id){
+
+		$new_data = $this->input->post();
+
+		// var_dump($this->input->post());
+		unset($new_data['id']);
+		
+	
+			$this->db->where('pID', $id);		
+	  $res = $this->db->update('pumps', $new_data);
+	  return $res;
+	}
+
+
+
+	function enablePump($Id)
+	{
+		$data = array(
+			'status' => ''
+		 );
+		 
+		 // $this->db->replace('source', $data);
+		 $this->db->where('pID', $Id);
+		 $res = $this->db->update('pumps', $data);
+		
+		return $res;
+	}
+
+
+	function disablePump($Id)
+	{
+		$data = array(
+			'status' => 'inactive'
+		 );
+		 
+		 // $this->db->replace('source', $data);
+		 $this->db->where('pID', $Id);
+		 $res = $this->db->update('pumps', $data);
+		
+		return $res;
+	}
+
+	function deletePump($Id)
+	{
+		$data = array(
+			'status' => 'deleted'
+		 );
+		 
+		 // $this->db->replace('source', $data);
+		 $this->db->where('pID', $Id);
+		 $res = $this->db->update('pumps', $data);
+		
+		return $res;
+	}
+
+
+
+	function getCurrentPumpData( $id = null, $count = null, $sdate = null, $edate = null){
+            
+       
+
+		if($sdate != null){
+			$this->db->where('datetime >=', $sdate);
+		}
+		
+		if($edate != null){
+			$this->db->where('datetime <=', $edate);
+		}
+        
+        $this->db->order_by('plID', 'DESC');
+		
+		
+        $this->db->where('pID', $id);
+
+		if($count != null){
+        
+        	$query = $this->db->get('pump_logs', $count);
+
+		}
+		else{
+
+			$query = $this->db->get('pump_logs');
+
+		}
+
+         if (count($query->result_array()) != 0){
+			//  var_dump($query->result_array()[0]);
+             return $query->result_array();
+		 }
+		 else{
+			return "2";         
+		 }
+
+		return "7";         
+		
+		}
+
+
+
+
+	
 	// ==========================================tanks=============================================================
 	
 	function load_tanks($id = null){
@@ -373,6 +761,59 @@ class base_model extends CI_Model {
 	  $res = $this->db->insert('tank', $new_data);
 	  return $res;
 	}
+	
+	
+	function addcronscript($tag = null,$json = null){
+
+		$new_data = array();
+
+		$new_data["cscode"] = $tag;
+		$new_data["json"] = $json;
+
+		$this->db->delete('cronscript', array('cscode' => $tag));
+	
+	
+	  $res = $this->db->insert('cronscript', $new_data);
+	  return $res;
+
+	}
+
+
+	
+	function getAdminHeavy(){
+
+		// $this->db->where('status !=', "deleted");
+		$this->db->where('cscode', "adminDashHeavy");
+		
+		$query = $this->db->get('cronscript');
+	
+		return $query->result_array();
+	
+	}
+	
+	function getCoyHeavy(){
+
+		// $this->db->where('status !=', "deleted");
+		$this->db->where('cscode', "coyDashHeavy");
+		
+		$query = $this->db->get('cronscript');
+	
+		return $query->result_array();
+	
+	}
+	
+	function getStatHeavy(){
+
+		// $this->db->where('status !=', "deleted");
+		$this->db->where('cscode', "statDashHeavy");
+		
+		$query = $this->db->get('cronscript');
+	
+		return $query->result_array();
+	
+	}
+
+
 
 
 	function getTank($id){
@@ -903,6 +1344,43 @@ class base_model extends CI_Model {
 		
 				
 	
+	function notificationReorderGet($companyName = null,$stationName = null){
+
+		
+		$this->db->where('closed !=', "Yes");
+
+		$this->db->group_by(array("station"));
+		if(isset($companyName) && $companyName != null && $companyName != ""){
+			
+			$this->db->where('company', $companyName);
+		}
+		
+		if(isset($stationName) && $stationName != null && $stationName != ""){
+			
+			$this->db->where('station', $stationName);
+		}
+		
+		$this->db->where('type', "Reorder");
+		$this->db->limit(5);
+		
+		// if($count == "yes"){
+		// 	$this->db->from('notifications');
+		// 	return $this->db->count_all_results();
+		// }
+		// if($count != "yes"){
+			
+			$this->db->order_by('created', 'desc');
+			$query = $this->db->get('notifications', 5);
+		
+			return $query->result_array();
+		// }
+
+
+		
+
+	}
+
+
 	function notificationGet($count = null,$companyName = null,$stationName = null){
 
 		
@@ -1038,6 +1516,44 @@ class base_model extends CI_Model {
 	}
 
 
+
+	function companyGetCount($inactive = null,$new = null, $from = null, $to = null, $userType = null, $company = null, $station = null, $location = null){
+
+		// $this->db->select(' _username, _firstName, _lastName, _email, _phoneNo, _station, _status, _access,  _user_autoid');
+		// $this->db->select('title, content, date');
+
+		if(isset($company) && $company != null && $company != 0){
+			
+			$this->db->where('company_id', $company);
+		}
+
+		if($from != null){
+
+		}
+
+		if($inactive == "yes"){
+
+			$this->db->where('status', "inactive");
+		}
+		if($inactive == "no"){
+
+			$this->db->where('status !=', "inactive");
+		}
+		if($new == "yes"){
+
+			$this->db->where('status ', "new");
+		}
+		$this->db->where('status !=', "deleted");
+
+		// $this->db->get('company');
+
+		$query = $this->db->count_all_results('company');
+		
+		// $query = $this->db->get('company');
+
+        return $query;
+
+	}
 
 	function companyGet($inactive = null,$new = null, $from = null, $to = null, $userType = null, $company = null, $station = null, $location = null){
 
@@ -1294,8 +1810,56 @@ class base_model extends CI_Model {
 
 	// ==========================================tank Management=====================================================
 
+	function tanksalereord($tank, $type, $val){
+
+		$this->db->where('tank',$tank);
+		$this->db->where('type',$type);
+
+		$q = $this->db->get('sales_reorders');
+
+		$data = array(
+			"value"=>$val,
+			"type"=>$type,
+			"tank"=>$tank,
+		);
+
+		if ( $q->num_rows() > 0 ) 
+		{
+			$this->db->where('tank',$tank);
+			$this->db->where('type',$type);
+			$this->db->update('sales_reorders',$data);
+		} else {
+			// $this->db->where('tank',$tank);
+			// $this->db->where('type',$type);
+			$this->db->insert('sales_reorders',$data);
+		}
+
+	}
 	
-	function tankGet($inactive = null, $company = null, $station = null, $location = null){
+	
+	function gettanksalereord($tank, $type){
+
+		$this->db->where('tank',$tank);
+		$this->db->where('type',$type);
+
+		$q = $this->db->get('sales_reorders');
+
+		
+
+		if ( $q->num_rows() > 0 ) 
+		{
+			return $q->result_array()[0];
+
+		} else {
+			return null;
+		}
+
+	}
+	
+
+
+
+	function tankGet($inactive = null, $company = null, $station = null, $location = null,$prod = null){
 
 		// $this->db->select(' _username, _firstName, _lastName, _email, _phoneNo, _station, _status, _access,  _user_autoid');
 		// $this->db->select('title, content, date');
@@ -1356,6 +1920,10 @@ class base_model extends CI_Model {
 
 		// }
 		
+		if(isset($prod) && $prod != null && $prod != ""){
+			$this->db->where('product', $prod);
+		}
+		
 		if($inactive == "yes"){
 
 			$this->db->where('status', "inactive");
@@ -1378,9 +1946,60 @@ class base_model extends CI_Model {
 
 
 
+
+	
+	function statCurTankVol($stat, $prod, $date, $vol){
+
+		$cvData = array(
+			'stat'=>$stat, 
+			'prod'=>$prod, 
+			'volume'=>$vol, 
+			'created'=>$date, 
+			);
+	
+		return $this->db->insert('curvol', $cvData);
+		
+	}
+
+
+
+
+	function getstatCurTankVol($stat = null, $prod = null, $date = null){
+
+		// var_dump($date);
+		// var_dump($date);
+		// var_dump($date);
+
+		$this->db->where_in('stat', $stat);
+
+		$this->db->where('prod', $prod);
+
+		if($date==null){
+
+			$date = date('Y-m-d H:i:s');
+			
+		}
+
+		$this->db->where('created <=', $date);
+		
+		
+		$query = $this->db->get('curvol');
+	
+		return $query->result_array();
+	
+	}
+
+
+
+
+
+
 	function getCurrentTankData( $name = null, $controller = null,$prod = null,$date = null){
-            
+			
+		
         if($name != null && $controller != null && $name != "" && $controller != ""){
+
+        // if($name != null && $controller != null && $name != "" && $controller != ""){
 
         // $this->db->select('l.*,t.volume');
         // $this->db->from('logs l');
@@ -1399,8 +2018,11 @@ class base_model extends CI_Model {
 		$this->db->like('log_decoded', "inventory");
 
 		if($date!=null){
-			$this->db->like('timestamp', $date);
+			$this->db->where('timestamp <=', $date);
 		}
+		// if($date!=null){
+		// 	$this->db->like('timestamp', $date);
+		// }
         
         $this->db->order_by('id', 'DESC');
         
@@ -1409,6 +2031,7 @@ class base_model extends CI_Model {
         $query = $this->db->get('logs', 1);
         // $query = $this->db->get('sLogs', 1);
 
+		// var_dump($query->result_array());
 
          if (count($query->result_array()) != 0){
 			//  var_dump($query->result_array()[0]);
@@ -1428,10 +2051,6 @@ class base_model extends CI_Model {
 		function getTankDay( $name = null, $controller = null,$prod = null,$date = null){
             
         if($name != null && $controller != null && $name != "" && $controller != ""){
-
-        // $this->db->select('l.*,t.volume');
-        // $this->db->from('logs l');
-        // $this->db->join('tank t', 't.controller = l.source_id', 'inner');
         
 		$this->db->like('log_decoded', 'Num":"'.$name);
 		
@@ -1447,6 +2066,10 @@ class base_model extends CI_Model {
 
 		if($date!=null){
 			$this->db->like('timestamp', $date);
+		}
+		else{
+			$this->db->where('timestamp >=', date('Y-m-d H:i:s', strtotime('-1 month')));
+
 		}
         
         $this->db->order_by('id', 'asc');
@@ -1768,6 +2391,8 @@ class base_model extends CI_Model {
 	function getControllerbyContId($id){
 
 		$this->db->where('status !=', "deleted");
+		$this->db->where('status !=', "inactive");
+
 		$this->db->where('contId', $id);
 		
 		$query = $this->db->get('device');
@@ -1780,14 +2405,24 @@ class base_model extends CI_Model {
 
 	function getCalFuelVol($controller = null, $tank = null, $level = null){
 
+		var_dump("calfueltank");
+		var_dump($tank);
+		var_dump("<br>");
+
 		$devId = (count($this->getControllerbyContId($controller)) ==1) ? $this->getControllerbyContId($controller)[0]['Source_id'] : 0;
 
-
+		var_dump("calfueldev");
+		var_dump($devId);
+		var_dump("<br>");
 
 
 		$this->db->select('tank_id');
 		$this->db->where('tank_num', $tank);
 		$this->db->where('device_id', $devId);
+		$this->db->where('status !=', "inactive");
+		$this->db->where('status !=', "deleted");
+
+
 		// $this->db->where('controller', $controller);
 		$result_set = $this->db->get('tank');
 		$result_arr = $result_set->result_array();
@@ -1829,7 +2464,7 @@ class base_model extends CI_Model {
 
 
 	function getLimit($level, $tank_id, $method){
-
+			var_dump($level);
 		if ($method == "upper"){
 			$this->db->select('volume');  
 			$this->db->where('dip >'. $level);
@@ -1838,8 +2473,9 @@ class base_model extends CI_Model {
 
 			$query = $this->db->get('tank_calibration');
 			$result_arr = $query->result_array();
-			var_dump("stop");
+			var_dump("start");
 			var_dump($result_arr);
+			var_dump($tank_id);
 			
 
 			if (!empty($result_arr)) {
@@ -1866,6 +2502,8 @@ class base_model extends CI_Model {
 			$result_arr = $query->result_array();
 			var_dump("stop");
 			var_dump($result_arr);
+			var_dump($tank_id);
+
 
 
 			if (!empty($result_arr)) {
@@ -2039,6 +2677,9 @@ class base_model extends CI_Model {
 
 
 
+
+
+
 	function addNotification($message,$coy,$station,$controller,$tank,$type,$severity){
 
 		$notification = array(
@@ -2068,7 +2709,7 @@ class base_model extends CI_Model {
 				
 				else {
 					
-					$query = $this->db->insert('noAuthlogs', $data);
+					$query = $this->db->insert('noauthlogs', $data);
 				}
 
 
@@ -2094,7 +2735,7 @@ class base_model extends CI_Model {
 
         $this->db->select('count(contId) as id_count');
         $this->db->from('device'); 
-        $this->db->where('contId', $source_id);       
+        $this->db->where('Source_id', $source_id);       
         $query = $this->db->get();
 
         print_r ($query->result()[0]->id_count);

@@ -657,12 +657,13 @@ function currData(num,cont){
 				$('#ts').text(log.timestamp);
 				$('#contr').text(log.stationCode);
 				$('#pduct').text(log.fuelType);
-				$('#flevel').text(numberWithCommas(parseFloat(log.fuelLevel).toFixed(2))+"(CM)");
+				$('#flevel').text(numberWithCommas(parseFloat(log.fuelLevel).toFixed(2))+"");
 				$('#fvol').text(numberWithCommas(parseFloat(log.fuelVol).toFixed(2))+"(Litres)");
+				// $('#fvol').text(numberWithCommas(parseFloat(log.probeFuelVol).toFixed(2))+"(Litres)");
 				$('#ltype').text(log.funcCode);
-				$('#theight').text(numberWithCommas(parseFloat(log.tankHeight).toFixed(2))+"(CM)");
+				// $('#theight').text(numberWithCommas(parseFloat(log.tankHeight).toFixed(2))+"(CM)");
 				$('#temp').html(parseFloat(log.temp).toFixed(2)+" <sup>o</sup>C");
-				$('#wlevel').text(numberWithCommas(parseFloat(log.waterLevel).toFixed(2))+"(CM)");
+				// $('#wlevel').text(numberWithCommas(parseFloat(log.waterLevel).toFixed(2))+"(CM)");
 
 				volNow = log.fuelVol;
 
@@ -1046,22 +1047,30 @@ function gettankNotifications(num,cont){
 											}
 											
 
-										notif = ` <li>
-													<a>
-														<span class="image">
+										notif = ` <div class="row " style="margin-top:15px; border-bottom:1px solid #fafafa">
+														<div class=" col-md-1">
 															<i title="`+sev+` Priority" class="fa fa-bell text-`+color+`"></i>
-														</span>
-														<span>
+														</div>
+														<div class=" col-md-1" style="visibility:hidden">
+															<i title="`+sev+` Priority" class="fa fa-bell text-`+color+`"></i>
+														</div>
+
+														
+														<div class="col-md-10">
 														<span>`+capitalizeFirstLetter(value.company)+`</span>
-														<span class="time" style="padding-right:10px">`+value.created+` 
-														<i style="padding-left:10px" onclick="deleteTankNotification('`+value.notification_id+`')" class="fa fa-close" title="Mark As Closed"></i> 
-														</span>
-														</span>
 														<span class="message">
 																`+value.message+`
 														</span>
-													</a>
-												</li>`;
+														<p class="time" style="padding-right:10px">`+value.created+` 
+														</p>
+														</div>
+
+														<div class=" col-md-1">
+														<i style="text-align: center;" onclick="deleteTankNotification('`+value.notification_id+`')" class="fa fa-close btn btn-sm btn-primary" title="Mark As Closed"></i> 
+														</div>
+														<hr>
+														
+												</div>`;
 											
 											$("#tankNotify").append(notif);
 											
@@ -1347,6 +1356,7 @@ if (response){
 
 	tsArray = curr.map(x => x.timestamp);
 	// console.log(tsArray);
+	// volArray = curr.map(x => JSON.parse(x.log_decoded).probeFuelVol);
 	volArray = curr.map(x => JSON.parse(x.log_decoded).fuelVol);
 	// console.log(volArray);
 
@@ -1400,7 +1410,12 @@ tsArray = tsArray.reverse();
 			}
 		};
 
+		canvas = document.getElementById('canvas');
+
 		var ctx = document.getElementById('canvas').getContext('2d');
+
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
+
 		var chart = new Chart(ctx, config);
 
 		

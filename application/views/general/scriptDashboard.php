@@ -5,6 +5,8 @@ $(document).ready( function () {
 	$( "#loadspin" ).hide();
 
 loadDash();
+// loadDashHeavy();
+// msieversion(); 
 
 
 });
@@ -157,7 +159,7 @@ function loadDash(from, to, userType, company, station, location){
 
 
 		var response = jqxhr.responseText;
-	
+			console.log(response);
 			console.log(JSON.parse(response));
 			res = JSON.parse(response);
 
@@ -339,24 +341,31 @@ function loadDash(from, to, userType, company, station, location){
 
 				_u.forEach(pApps, function(val, key) {
 
+					if(key > 4){
+						return;
+					}
+
+						// <span class="col-md-1 col-sm-1 col-xs-1 text-info">
+						// <i class="far fa-building fa-2x"></i>
+						// </span>
+
+						// <span class="col-md-1 col-sm-1 col-xs-1">
+						
+						// <br>
+						
+
+						// </span>
+
 				
-				pApp = `	<li  style="max-height:55px">
-					<a class="row" style="width:100%">
-						<span class="col-md-2 col-sm-2 col-xs-2">
-						<i class="fa fa-building-o fa-3x"></i>
-						</span>
-						<span class="col-md-9 col-sm-9 col-xs-9">
-							<b>Company</b>: <i class="pull-right">`+capitalizeFirstLetter(val.name)+`</i>
+				pApp = `	<li  style="max-height:55px; background-color:#fafafa;margin-bottom:5px">
+					<a class="row" style="width:110%">
+						<span class="col-md-12 col-sm-12 col-xs-12">
+							<b>Company</b>: <i class="pull-right">`+capitalizeFirstLetter(val.name)+` &nbsp;&nbsp;&nbsp; <i title="Approve" onclick="toggleApprove('`+val.company_id+`',1)" class="fa fa-check fa-1x text-success"></i></i> 
 							<br> 
-							<b>Created</b>: <i class="pull-right">`+val.created.slice(0, -3)+`</i>
+							<b>Created</b>: <i class="pull-right">`+val.created.slice(0, -3)+` &nbsp;&nbsp;&nbsp; <i title="Disapprove" onclick="toggleApprove('`+val.company_id+`',0)" class="fa fa-close fa-1x text-danger"></i></i>
 						
 						</span>
-						<span class="col-md-1 col-sm-1 col-xs-1">
-						<i title="Approve" onclick="toggleApprove('`+val.company_id+`',1)" class="fa fa-check fa-1x text-success"></i>
-						<br>
-						<i title="Disapprove" onclick="toggleApprove('`+val.company_id+`',0)" class="fa fa-close fa-1x text-danger"></i>
-
-						</span>
+						
 					
 					</a>
 				</li>`;
@@ -390,10 +399,10 @@ function loadDash(from, to, userType, company, station, location){
 				_u.forEach(maus, function(val, key) {
 
 				
-				mau = `		<li  style="max-height:55px">
+				mau = `		<li  style="max-height:55px; background-color:#fafafa;margin-bottom:5px">
 					<a class="row" style="width:100%">
 						<span class="col-md-3 col-sm-3 col-xs-3">
-						<i class="fa fa-user fa-3x"></i>
+						<i class="fa fa-user fa-3x text-primary"></i>
 						</span>
 						<span class="col-md-9 col-sm-9 col-xs-9">
 							<b>User</b>: <i class="pull-right">`+capitalizeFirstLetter(val.user)+`</i>
@@ -431,35 +440,61 @@ function loadDash(from, to, userType, company, station, location){
 
 				reorders = res.reorders;
 
-				reorders = _u.sortBy(reorders, [2]);
+				// reorders = _u.sortBy(reorders, [2]);
 
 				console.log(reorders);
 
 				$('#srf').empty();
 
 					_u.forEach(reorders, function(val, key) {
-coy = res.companies.filter(comp => comp.company_id == val[3]);
-console.log(coy);
-coyName = null;
-if (typeof coy[0] === 'undefined'){
-coyName = "Company";
-}
-else{
-coyName = coy[0].name;
 
+if(key > 4){
+	return;
 }
+
+coyName = val['company'];
+statName = val['station'];
+// coy = res.companies.filter(comp => comp.company_id == val[3]);
+// console.log(coy);
+// coyName = null;
+// if (typeof coy[0] === 'undefined'){
+// coyName = "Company";
+// }
+// else{
+// coyName = coy[0].name;
+
+// }
 
 // console.log(coy);
+// <div class="row">
+						// <div class="" style="width:30%;display:inline">
+				 		// 	<i class="fa fa-tint fa-3x text-primary"></i>
+						
+						// </div>
 
-					idev = `	<li  style="max-height:55px">
+						// <span class="col-md-3 col-sm-3 col-xs-3">
+						// 		<i class="fa fa-tint fa-3x text-primary"></i>
+						// 		</span>
+
+
+					// idev = `
+					
+
+					// 	<div class="" style="width:70%">
+					// 			<p><b>Company</b>: <i class="pull-right">`+capitalizeFirstLetter(coyName)+`</i></p>
+								 
+					// 			<p><b>Station</b>: <i class="pull-right">`+capitalizeFirstLetter(statName)+`</i></p>
+					// 	</div>
+					
+					// `;
+
+					idev = `	<li  style="max-height:55px; background-color:#fafafa;margin-bottom:5px">
 							<a class="row" style="width:100%">
-								<span class="col-md-3 col-sm-3 col-xs-3">
-								<i class="fa fa-tint fa-3x"></i>
-								</span>
-								<span class="col-md-9 col-sm-9 col-xs-9">
+								
+								<span class="col-md-12 col-sm-12 col-xs-12 ">
 								<b>Company</b>: <i class="pull-right">`+capitalizeFirstLetter(coyName)+`</i>
 								<br> 
-								<b>Station</b>: <i class="pull-right">`+capitalizeFirstLetter(val[0])+`</i>
+								<b>Station</b>: <i class="pull-right">`+capitalizeFirstLetter(statName)+`</i>
 								</span>
 							
 							</a>
@@ -495,10 +530,10 @@ coyName = coy[0].name;
 				_u.forEach(rlogs, function(val, key) {
 
 				
-				rlog = `		<li>
+				rlog = `		<li style="background-color:#fafafa;margin-bottom:5px">
 					<a>
 						<span class="image">
-						<i class="fa fa-list"></i>
+						<i class="fa fa-list  text-info"></i>
 						</span>
 						<span>
 							<span>`+val.user+`</span>
@@ -535,17 +570,18 @@ coyName = coy[0].name;
 
 				$('#iDevs').empty();
 
+				// <span class="col-md-2 col-sm-2 col-xs-2 info-number">
+				// 		<i class="fa fa-keyboard-o fa-2x text-primary"></i>
+
+				// 		</span>
+
 				_u.forEach(idevs, function(val, key) {
 
 				
-				idev = `	<li  style="max-height:55px">
+				idev = `	<li  style="max-height:55px; background-color:#fafafa;margin-bottom:5px">
 					<a class="row" style="width:100%">
-						<span class="col-md-3 col-sm-3 col-xs-3 info-number">
-						<i class="fa fa-keyboard-o fa-3x"></i>
-						<span class="badge bg-red" >I</span>
-
-						</span>
-						<span class="col-md-9 col-sm-9 col-xs-9">
+						
+						<span class="col-md-12 col-sm-12 col-xs-12">
 							<b>Device</b>: <i class="pull-right">`+val.contId+`</i>
 							<br>
 							<b>Station</b>: <i class="pull-right">`+val.statName+`</i>
@@ -623,6 +659,10 @@ coyName = coy[0].name;
 			}
 
 	$( "#loadspin" ).hide();
+
+
+		// loadDashHeavy();
+
 				
 		})
 
@@ -637,7 +677,100 @@ coyName = coy[0].name;
 
 		});
 
+// loadDashHeavy();
+
+
 }
+
+
+
+// ==============================================================================================
+function msieversion() 
+{
+    var ua = window.navigator.userAgent;
+    var msie = ua.indexOf("MSIE ");
+
+    if (msie > 0) // If Internet Explorer, return version number
+    {
+        // alert(parseInt(ua.substring(msie + 5, ua.indexOf(".", msie))));
+		alert('is ie')
+    }
+    else  // If another browser, return 0
+    {
+        // alert('otherbrowser');
+		alert('is not ie')
+
+    }
+
+    return false;
+}
+// ==============================================================================================
+// function loadDashHeavy(from, to, userType, company, station, location){
+// 	$( "#loadspin" ).show();
+// 	// alert("loaded");
+// 			var jqxhr = $.ajax({
+
+// 		url: '<?php echo base_url() ; ?>index.php/generalDashLoadHeavy/',
+
+// 		type: 'POST',
+// 		data: {
+			
+// 			from:from,
+// 			to:to,
+// 			userType:userType,
+// 			company:company,
+// 			station:station,
+// 			location:location,
+
+// 			},
+
+
+// 		cache:false,
+// 		error: function(XMLHttpRequest, textStatus, errorThrown) {
+// 				alert(errorThrown);
+// 		},
+
+
+// 		beforeSend: function () {  
+
+// 		}            
+
+// 		})
+
+
+
+// 		.done(function () {
+
+
+	
+
+
+
+// 		var response = jqxhr.responseText;
+// 			console.log(response);
+// 			console.log(JSON.parse(response));
+// 			res = JSON.parse(response);
+
+// 			respo = res;
+
+
+// 	$( "#loadspin" ).hide();
+				
+// 		})
+
+
+
+// 		.fail(function () {
+
+// 		})
+
+
+// 		.always(function () {
+
+// 		});
+
+// }
+// ==============================================================================================
 
 
 
@@ -769,10 +902,10 @@ if ($('#myDashLineChart').length ){
 				labels: ["7 Days Ago", "6 Days Ago", "5 Days Ago", "4 Days Ago", "3 Days Ago", "2 Days Ago", "1 Day Ago"],
 				datasets: [{
 				label: "PMS",
-				backgroundColor: "rgba(38, 185, 154, 0.31)",
-				borderColor: "rgba(38, 185, 154, 0.7)",
-				pointBorderColor: "rgba(38, 185, 154, 0.7)",
-				pointBackgroundColor: "rgba(38, 185, 154, 0.7)",
+				backgroundColor: "rgba(25, 138, 227, 0.31)",
+				borderColor: "rgba(25, 138, 227, 0.7)",
+				pointBorderColor: "rgba(25, 138, 227, 0.7)",
+				pointBackgroundColor: "rgba(25, 138, 227, 0.7)",
 				pointHoverBackgroundColor: "#fff",
 				pointHoverBorderColor: "rgba(220,220,220,1)",
 				pointBorderWidth: 1,
@@ -780,10 +913,10 @@ if ($('#myDashLineChart').length ){
 				data: linePMS
 				}, {
 				label: "DPK",
-				backgroundColor: "rgba(3, 88, 106, 0.3)",
-				borderColor: "rgba(3, 88, 106, 0.70)",
-				pointBorderColor: "rgba(3, 88, 106, 0.70)",
-				pointBackgroundColor: "rgba(3, 88, 106, 0.70)",
+				backgroundColor: "rgba(254, 124, 150, 0.3)",
+				borderColor: "rgba(254, 124, 150, 0.70)",
+				pointBorderColor: "rgba(254, 124, 150, 0.70)",
+				pointBackgroundColor: "rgba(254, 124, 150, 0.70)",
 				pointHoverBackgroundColor: "#fff",
 				pointHoverBorderColor: "rgba(151,187,205,1)",
 				pointBorderWidth: 1,
@@ -792,10 +925,10 @@ if ($('#myDashLineChart').length ){
 
 				}, {
 				label: "AGO",
-				backgroundColor: "rgba(23, 8, 106, 0.3)",
-				borderColor: "rgba(23, 8, 106, 0.70)",
-				pointBorderColor: "rgba(23, 8, 106, 0.70)",
-				pointBackgroundColor: "rgba(23, 8, 106, 0.70)",
+				backgroundColor: "rgba(254, 215, 19, 0.3)",
+				borderColor: "rgba(254, 215, 19, 0.70)",
+				pointBorderColor: "rgba(254, 215, 19, 0.70)",
+				pointBackgroundColor: "rgba(254, 215, 19, 0.70)",
 				pointHoverBackgroundColor: "#fff",
 				pointHoverBorderColor: "rgba(151,187,205,1)",
 				pointBorderWidth: 1,

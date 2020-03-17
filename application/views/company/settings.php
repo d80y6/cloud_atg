@@ -1,5 +1,20 @@
-<?php    $this->load->view('company/header') ; ?>
+<?php    $this->load->view('company/head') ; ?>
 
+
+
+<div class="page-header">
+              <h3 class="page-title">
+                <span class="page-title-icon bg-gradient-primary text-white mr-2">
+                  <i class="mdi mdi-settings"></i>
+                </span> Settings </h3>
+              <nav aria-label="breadcrumb">
+                <ul class="breadcrumb">
+                  <li class="breadcrumb-item active" aria-current="page">
+                    <span></span><i id="nodeName" class="text-default"></i> &nbsp; <i class="mdi mdi-alert-circle-outline icon-sm text-primary align-middle"></i>
+                  </li>
+                </ul>
+              </nav>
+			</div>
 
 
 
@@ -7,11 +22,16 @@
 <!-- dummy test page yo -->
 
 
+<div class="row">
+	<div class="col-md-12 grid-margin stretch-card ">
+		<div class="card ">
+			<div class="card-body">
+
 
     <div class="col-md-12 col-sm-12 col-xs-12">
 		<div class="x_panel">
 			<div class="x_title">
-			<h2><i class="fa fa-bars"></i> Settings <small>Global Configuration</small></h2>
+			<!-- <h2><i class="fa fa-bars"></i> Settings <small>Global Configuration</small></h2> -->
 			<ul class="nav navbar-right panel_toolbox">
 				<!-- <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 				</li>
@@ -34,9 +54,9 @@
 
 			<div class="" role="tabpanel" data-example-id="togglable-tabs">
 				<ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
-				<li role="presentation" class="active"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true"><b>Keep Alive Time</b></a>
+				<li role="presentation" style="margin:10px" class="active"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true"><b>Keep Alive Time</b></a>
 				</li>
-				<li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false"><b>Pasword Change Duration</b></a>
+				<li role="presentation" style="margin:10px" class=""><a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false"><b>Pasword Change Duration</b></a>
 				</li>
 				<!-- <li role="presentation" class=""><a href="#tab_content3" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false">Profile</a> -->
 				</li>
@@ -48,14 +68,14 @@
 					<div class="row">
 						
 						
-						<div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12" style="border-right:2px solid grey;">
+						<div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12" style="border-right:2px solid grey; margin-top:20px">
 							<div class="tile-stats">
-								<div class="icon"><i class="fa fa-clock-o"></i>
-								</div>
-							<div class="count" id="count">00</div>
+								<!-- <div class="icon"><i class="fa fa-clock-o fa-3x"></i>
+								</div> -->
+								<div>Current Value:</div>
+							<h3 class="count" id="count">00</h3>
 
-								<h3>Current Value</h3>
-								<p>Time in Hours to Flag Controller Inactive.</p>
+								<small>Time in Hours to Flag Controller Inactive.</small>
 							</div>
 						</div>
 
@@ -64,7 +84,7 @@
 
 						</div> -->
 						<?php if($this->session->userdata('acctType') != "regCoyUser"){?>
-						<div id="setkat" class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12" >
+						<div id="setkat" class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12" style="margin-top:20px" >
 							<input id="kat" placeholder="Keep Alive Time in Hours" type="number" class="form-control" name="kat">
 							<div class="clearfix" style="margin-top:20px"></div>
 
@@ -86,14 +106,14 @@
 					<div class="row">
 						
 						
-						<div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12" style="border-right:2px solid grey;">
+						<div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12" style="border-right:2px solid grey; margin-top:20px">
 							<div class="tile-stats">
-								<div class="icon"><i class="fa fa-clock-o"></i>
-								</div>
-							<div class="count" id="pcdcount">00</div>
+								<!-- <div class="icon"><i class="fa fa-clock-o"></i>
+								</div> -->
+								<div>Current Value</div>
+							<h3 class="count" id="pcdcount">00</h3>
 
-								<h3>Current Value</h3>
-								<p>Duration in Days Before Forcing Password Change.</p>
+								<small>Duration in Days Before Forcing Password Change.</small>
 							</div>
 						</div>
 
@@ -103,7 +123,7 @@
 						</div> -->
 						<?php if($this->session->userdata('acctType') != "regCoyUser"){?>
 
-						<div id="setpcd" class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12" >
+						<div id="setpcd" class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12" style="margin-top:20px" >
 							<input id="pcd" placeholder="Password Change Duration in Days" type="number" class="form-control" name="pcd">
 							<div class="clearfix" style="margin-top:20px"></div>
 
@@ -129,10 +149,18 @@
 	</div>
 					
 
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+
+
 
 </div>
 
 
-<?php    $this->load->view('company/footer') ; ?>
+<?php    $this->load->view('company/foot') ; ?>
 <?php    $this->load->view('company/scriptSettingsmgt') ; ?>
 

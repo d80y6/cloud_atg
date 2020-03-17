@@ -982,6 +982,574 @@ class Base extends CI_Controller {
 
 
 	// ===================================================Controller end========================================
+	
+	public function pumpmgt($id = null){
+
+		$data = array();
+		
+		
+		if  ($this->session->userdata('id') != null ){
+			// redirect('index');
+			
+			if  ($this->session->userdata('acctType') == "admin" ){
+				$this->load->view('general/pumpmgt', $data);
+				
+			}
+			elseif  ($this->session->userdata('acctType') == "companyAdmin" ){
+				$this->load->view('company/pumpmgt', $data);
+				
+			}
+			elseif  ($this->session->userdata('acctType') == "stationAdmin" ){
+				$this->load->view('station/pumpmgt', $data);
+
+			}
+			elseif  ($this->session->userdata('acctType') == "regUser" ){
+				$this->load->view('general/pumpmgt', $data);
+				
+			}
+			elseif  ($this->session->userdata('acctType') == "regCoyUser" ){
+				$this->load->view('company/pumpmgt', $data);
+
+			}
+			elseif  ($this->session->userdata('acctType') == "regStatUser" ){
+				$this->load->view('station/pumpmgt', $data);
+
+			}
+
+	
+		}
+		else{
+			redirect("logout");
+		}
+
+	}
+
+
+	function pumps_loadtable($id = null)
+    {
+		
+				
+			// $result = $this->base_model->load_tanks();
+			$result = $id ? $this->base_model->load_pumps($id) : $this->base_model->load_pumps();
+			
+		 echo $result;
+			
+		
+        
+	}
+
+
+
+	
+	function enablePump($Id= null,$name=null)
+    {
+		$result = $this->base_model->enablePump($Id); 
+
+		// var_dump($this->getPump($Id,true));
+
+
+		$name = $this->getPump($Id,true)[0] ? $this->getPump($Id,true)[0]['pump_name'] : "Not Found";
+
+		if($result){
+			$logArr = array(
+				'user' => $this->session->userdata('fname')." ".$this->session->userdata('lname'),
+				'activity' =>"Enable Pump | ".$name." | ".$this->browser(). " | ".$this->platform(),
+				'company' => $this->session->userdata('company'),
+				'station' => $this->session->userdata('station'),
+				'target_user' => $this->session->userdata('id'),
+
+			);
+
+			$this->base_model->addActivityLog($logArr);
+
+		}
+		 
+		echo $result;
+
+	}
+
+
+	function disablePump($Id= null,$name=null)
+    {
+		$result = $this->base_model->disablePump($Id); 
+
+
+		// var_dump($this->getPump($Id,true));
+
+		$name = $this->getPump($Id,true)[0] ? $this->getPump($Id,true)[0]['pump_name'] : "Not Found";
+
+		if($result){
+			$logArr = array(
+				'user' => $this->session->userdata('fname')." ".$this->session->userdata('lname'),
+				'activity' =>"Disable Pump | ".$name." | ".$this->browser(). " | ".$this->platform(),
+				'company' => $this->session->userdata('company'),
+				'station' => $this->session->userdata('station'),
+				'target_user' => $this->session->userdata('id'),
+
+			);
+
+			$this->base_model->addActivityLog($logArr);
+
+		}
+		 
+		echo $result;
+
+	}
+
+
+
+	function deletePump($Id= null,$name=null)
+    {
+		$result = $this->base_model->deletePump($Id); 
+
+
+		$name = $Id;
+
+		if($result){
+			$logArr = array(
+				'user' => $this->session->userdata('fname')." ".$this->session->userdata('lname'),
+				'activity' =>"Delete Pump | ".$name." | ".$this->browser(). " | ".$this->platform(),
+				'company' => $this->session->userdata('company'),
+				'station' => $this->session->userdata('station'),
+				'target_user' => $this->session->userdata('id'),
+
+			);
+
+			$this->base_model->addActivityLog($logArr);
+
+		}
+
+		 
+		echo $result;
+
+	}
+
+
+	function addPump()
+    {
+		$result = $this->base_model->addPump(); 
+
+
+		if($result){
+			$logArr = array(
+				'user' => $this->session->userdata('fname')." ".$this->session->userdata('lname'),
+				'activity' =>"Add Pump | ".$this->input->post('tank_name')." | ".$this->input->post('tank_num')." | ".$this->browser(). " | ".$this->platform(),
+				'company' => $this->session->userdata('company'),
+				'station' => $this->session->userdata('station'),
+				'target_user' => $this->session->userdata('id'),
+
+			);
+
+			$this->base_model->addActivityLog($logArr);
+
+		}
+
+		// var_dump($this->input->post());
+		 
+		echo $result;
+
+	}
+
+
+	function editPump(){
+ 
+		$id = $this->input->post('id',true);
+
+		echo $result = $this->base_model->editPump($id);
+
+		if($result){
+			$logArr = array(
+				'user' => $this->session->userdata('fname')." ".$this->session->userdata('lname'),
+				'activity' =>"Edit Pump | ".$this->input->post('tank_name')." | ".$this->input->post('tank_num')." | ".$this->browser(). " | ".$this->platform(),
+				'company' => $this->session->userdata('company'),
+				'station' => $this->session->userdata('station'),
+				'target_user' => $this->session->userdata('id'),
+
+			);
+
+			$this->base_model->addActivityLog($logArr);
+
+		}
+	}
+
+
+
+
+	function getPump($id = null, $within = null){
+
+		// $id = $this->post->("num",true);
+		// $id = $this->input->post('num',true);
+		if($id == null){
+			$id = $this->input->post('num',true);
+		}
+
+		if(!$within){
+
+		echo json_encode($this->base_model->getPump($id));
+		}
+
+		if($within){
+
+		return $this->base_model->getPump($id);
+		}
+	}
+
+
+
+	function getCurrentPumpData($id = null, $cont = null){
+
+		$id = $this->input->post('id',true);
+		$st = $this->input->post('st',true);
+		$en = $this->input->post('en',true);
+
+		$currVal = null;
+
+		$currVal = $this->base_model->getCurrentPumpData($id,10,$st,$en);
+		
+		// if($cont){
+			
+		// }
+		// else{
+		// 	$currVal = "3";
+		// }
+		
+		
+		
+		echo json_encode($currVal);
+
+	}
+
+
+
+	function getCurrentStatPumpData(){
+		// $num = $this->input->post('num',true);
+		// $devid = $this->input->post('devid',true);
+		$from = $this->input->post('st',true);
+		$to = $this->input->post('en',true);
+
+		$stat = $this->input->post('stat',true);
+
+		// var_dump($from);
+		// var_dump($to);
+
+		// $stat = $this->session->userdata('station');
+		$pumps = null;
+
+		if(isset($stat) && $stat != null && $stat != 0){
+			$pumps = (count($this->base_model->getPumpsByStat($stat)) > 0) ? array_column($this->base_model->getPumpsByStat($stat), 'pID') : [];
+		}
+		else{
+			$pumps = (count($this->base_model->getPumpsByStat()) > 0) ? array_column($this->base_model->getPumpsByStat(), 'pID') : [];
+
+		}
+
+		// var_dump($stat);
+		// var_dump($pumps);
+
+		// if($pumps)
+
+		
+		$currVolpms = $this->base_model->getRangePumpLogs($pumps,null,null,$from,$to,"PMS");
+		
+		// var_dump($currVolpms);
+		
+		$currVolpms = (gettype($currVolpms) == "string") ? [] : $currVolpms;
+		$currVolpms = array_sum(array_map(array($this, 'myfunction'),$currVolpms));
+		
+		
+
+		$currVolago = $this->base_model->getRangePumpLogs($pumps,null,null,$from,$to,"AGO");
+		
+		// var_dump($currVolago);
+		
+		$currVolago = (gettype($currVolago) == "string") ? [] : $currVolago;	
+		$currVolago = array_sum(array_map(array($this, 'myfunction'),$currVolago));
+		
+
+
+		$currVoldpk = $this->base_model->getRangePumpLogs($pumps,null,null,$from,$to,"DPK");
+		
+		// var_dump($currVoldpk);
+		
+		$currVoldpk = (gettype($currVoldpk) == "string") ? [] : $currVoldpk;
+		$currVoldpk = array_sum(array_map(array($this, 'myfunction'),$currVoldpk));
+		
+		
+		$res = array(
+			"ago"=>$currVolago,
+			"pms"=>$currVolpms,
+			"dpk"=>$currVoldpk
+		);
+
+			echo json_encode($res);
+
+	}
+
+
+
+	function myfunction($arr)
+	{
+		$vol = (int)json_decode($arr['pump_data'],true)['volDisp'];
+
+	return $vol;
+	}
+
+
+
+	
+	function getPumpLogs(){
+		$num = $this->input->post('num',true);
+		// $devid = $this->input->post('devid',true);
+		$from = $this->input->post('from',true);
+		$to = $this->input->post('to',true);
+
+		// var_dump($from);
+		// var_dump($to);
+
+		$currVol = $this->base_model->getPumpLogs($num,null,null,$from,$to);
+			$currVol = (gettype($currVol) == "string") ? [] : $currVol;
+
+			echo json_encode($currVol);
+
+
+	}
+
+
+
+	function pumpAPILogin( $statid = null ){
+
+		$url = 'https://api.epump.com.ng/Account/login';
+
+		$stat = $this->getStation($statid,true) ? $this->getStation($statid,true)[0] : null;
+
+
+		$uname = ($stat != null) ? $stat['p_uname'] : 'sheriff.babatunde@asharamisynergy.com';
+		$pword = ($stat != null) ? $stat['p_pass'] :'AsharamiBI';
+
+		$postRequest = array('userName' => $uname,
+			'password' => $pword);
+
+		// $postRequest = '{"userName":"sheriff.babatunde@asharamisynergy.com","password":"AsharamiBI"}';
+
+		
+		$curl = curl_init();
+		// $curl = curl_init($url);
+
+		
+		$postRequest = json_encode($postRequest);
+
+		// echo $postRequest;
+			
+		$headers = array(
+				'Accept: */*',
+				'Content-Type: application/json',
+				'Content-Length: '. strlen($postRequest)
+				// 'Authorization : "Authorization: Bearer 080042cad6356ad5dc0a720c18b53b8e53d4c274"
+			);
+
+	
+		curl_setopt_array($curl, array(
+			CURLOPT_RETURNTRANSFER => 1,
+			CURLOPT_POSTFIELDS => $postRequest,
+			CURLOPT_POST => 1,
+			CURLOPT_URL => $url,
+			CURLOPT_HTTPHEADER => $headers
+		));
+
+		$resp = curl_exec($curl);
+		
+		
+		curl_close($curl);
+
+		$decoded = json_decode($resp,true);
+
+		if (is_array($decoded)){
+
+			// var_dump($decoded);
+
+			if (array_key_exists("token",$decoded))
+			{
+				return $decoded['token'] ;
+			}
+			else{
+				return 3;
+			}
+
+		}
+		else {
+
+			return 2;
+		}
+
+		// var_dump($decoded['token']);
+
+
+	}
+
+
+
+	function getStartDate($connID){
+		$thisYear = date("Y");
+		$thisMonth = (date("m") == 01) ? "01" : date("m")-1;
+		$thisStart = $thisYear.'-'.$thisMonth.'-01 00:00:00';
+
+		$retval = ($this->base_model->getStartDate($connID) == null) ?  $thisStart : $this->base_model->getStartDate($connID);
+		var_dump($this->base_model->getStartDate($connID) );
+		echo '<br/><br/><br/>';	
+		var_dump($retval);
+		echo '<br/><br/><br/>';	
+
+
+		return $retval;
+	}
+
+
+	function getPumpLogsAPI(){
+
+		echo 'start';
+
+		
+		ini_set('memory_limit', '1024M');
+				ini_set('max_execution_time', 3000);
+
+		$pumps = $this->base_model->getPumps(); 
+
+		foreach($pumps as $k=>$v)
+		{
+
+			// if($k > 1){
+			// 	break;
+			// }
+
+			// echo $k;
+			// echo '<br>';
+
+			$pumpeid = $v['pname'];
+
+			$token = $this->pumpAPILogin($v['station']);
+
+			// echo $token;
+			
+			if ($token == 2 || $token == 3){
+				continue;
+			}
+			else{
+				
+				echo $token;
+
+				$url = 'https://api.epump.com.ng/Branch/PumpTransactions/'.$pumpeid;
+				
+				$stdt = $this->getStartDate($v['pID']);
+				$endt = date('Y-m-d H:i:s');
+
+				$postRequest = "strtDate=$stdt&endDate=$endt";
+
+				$cpostRequest = str_replace(" ","%20",$postRequest);
+
+				$url = $url.'?'.$cpostRequest;
+
+
+				echo  "<br>";
+				echo $v['pID'];
+				echo  "<br>";
+				echo $stdt;
+				echo  "<br>";
+				// echo  "<br>--------------------------------------<br>";
+				// continue;
+				echo $endt;
+				echo  "<br>";
+				echo $url. "<br>";
+
+				$headers = array(
+					'Accept: */*',
+					'Content-Type: application/json',
+				// 'Content-Length: '. strlen($postRequest),
+					'Authorization : Bearer '.$token
+				);
+
+				$curl = curl_init();
+
+
+				curl_setopt_array($curl, array(
+					CURLOPT_RETURNTRANSFER => 1,
+					// CURLOPT_POSTFIELDS => $postRequest,
+					CURLOPT_POST => 0,
+					CURLOPT_URL => $url,
+					CURLOPT_HTTPHEADER => $headers
+				));
+
+				$resp = curl_exec($curl);
+				
+				
+				curl_close($curl);
+
+				$decoded = json_decode($resp,true);
+
+				
+				if(is_array($decoded)){
+					$decoded = array_reverse($decoded);
+					var_dump($decoded[0]);
+
+					foreach($decoded as $kd=>$vd){
+
+						// if($kd > 500){
+						// 	break;
+						// }
+
+						$toInsert = array();
+
+						$toInsert['funcCode'] = "Dispense";
+						$toInsert['datetime'] = str_replace("T"," ",$vd['date']);
+						$toInsert['openingRead'] = $vd['openingRead'];
+						$toInsert['closingRead'] = $vd['closingRead'];
+						$toInsert['volDisp'] = $vd['totalSale'];
+
+						$dtTime = $toInsert['datetime'];
+
+						$pumpData = json_encode($toInsert);
+
+						$id = $v['pID'];
+						$prod = $v['product'];
+
+						$obj = array(
+							"pump_data" => $pumpData,
+							"datetime" => $dtTime,
+							"pID" => $id,
+							"prod" => $prod,
+						);
+
+						$res = $this->base_model->addPumpLogs($obj); 
+
+						if($res){
+							echo "done";
+						}
+						else{
+							echo "failed";
+						}
+						
+					}
+
+				}
+				else{
+					continue;
+				}
+
+				echo "<br>==================================<br>";
+
+
+			}
+
+
+		}
+
+
+	}
+
+
+
+
+
+	// ===================================================Pump end========================================
 
 	public function tankmgt($id = null)
 	{
@@ -1043,7 +1611,7 @@ class Base extends CI_Controller {
     {
 		$result = $this->base_model->enableTank($Id); 
 
-		$name = $this->getTank($Id,true) ? $this->getTank($Id,true)['tank_name'] : "Not Found";
+		$name = $this->getTank($Id,true)[0] ? $this->getTank($Id,true)[0]['tank_name'] : "Not Found";
 
 		if($result){
 			$logArr = array(
@@ -1068,7 +1636,7 @@ class Base extends CI_Controller {
     {
 		$result = $this->base_model->disableTank($Id); 
 
-		$name = $this->getTank($Id,true) ? $this->getTank($Id,true)['tank_name'] : "Not Found";
+		$name = $this->getTank($Id,true)[0] ? $this->getTank($Id,true)[0]['tank_name'] : "Not Found";
 
 		if($result){
 			$logArr = array(
@@ -1094,7 +1662,7 @@ class Base extends CI_Controller {
 		$result = $this->base_model->deleteTank($Id); 
 
 
-		$name = $this->getTank($Id,true) ? $this->getTank($Id,true)['tank_name'] : "Not Found";
+		$name = $this->getTank($Id,true)[0] ? $this->getTank($Id,true)[0]['tank_name'] : "Not Found";
 
 		if($result){
 			$logArr = array(
@@ -1848,11 +2416,66 @@ class Base extends CI_Controller {
 	}
 
 
-	function generalDashLoad(){
-				ini_set('memory_limit', '1024M');
+	function generalDashLoadHeavy(){
+
+		ini_set('memory_limit', '1024M');
+				ini_set('max_execution_time', 3000);
 				// ini_set('memory_limit', '254M');
 
-		// if()
+		$from = $this->input->post('from',true);
+		$to = $this->input->post('to',true);
+		$userType = $this->input->post('userType',true);
+		$company = $this->input->post('company',true);
+		$station = $this->input->post('station',true);
+		$location = $this->input->post('location',true);
+
+		$stations = $this->base_model->stationGet(null, $company, $station, $location);
+		// // var_dump($stations);
+		$reorderFreq = [];
+		$grbt = null;
+		foreach ($stations as $key=>$stat) {
+		
+			$name = $stat['name'];
+			$id = $stat['station_id'];
+			$coy = $stat['company_id'];
+			$loc = $stat['location'];
+
+			$tanks = $this->base_model->tankGet(null,null,$id);
+
+			$reorders = [];
+			foreach ($tanks as $key=>$tank) {
+				$grbt = $this->getReordersByTank($tank);
+				// var_dump($grbt);
+				if($grbt == null || count($grbt)<1){
+					continue;
+				}
+				$reorders = array_merge($reorders,$grbt);
+
+			
+			}
+
+			array_push($reorderFreq,array($name,$loc,count($reorders),$coy));
+
+		}	
+
+
+		$data = $reorderFreq;
+
+		// $data['reorders'] = $reorderFreq;
+
+
+		$res = $this->base_model->addcronscript("adminDashHeavy",json_encode($data));
+
+
+	}
+
+
+
+	function generalDashLoad(){
+				ini_set('memory_limit', '1024M');
+				ini_set('max_execution_time', 3000);
+				// ini_set('memory_limit', '254M');
+
 		$from = $this->input->post('from',true);
 		$to = $this->input->post('to',true);
 		$userType = $this->input->post('userType',true);
@@ -1863,7 +2486,7 @@ class Base extends CI_Controller {
 		
 		
 		$stations = $this->base_model->stationGet(null, $company, $station, $location);
-		// var_dump($stations);
+		// // var_dump($stations);
 		$reorderFreq = [];
 		foreach ($stations as $key=>$stat) {
 		
@@ -1891,20 +2514,24 @@ class Base extends CI_Controller {
 
 
 		}	
+		// var_dump($this->base_model->getAdminHeavy()[0]);
 
+		// $reorderFreq = count($this->base_model->getAdminHeavy()) > 0 ? json_decode($this->base_model->getAdminHeavy()[0]['json'],true) : [];
 
 
 		$data = array();
 
 		$data['reorders'] = $reorderFreq;
-
+		
+		$data['reorders'] = $this->base_model->notificationReorderGet();
 
 
 		$data['companies'] = $this->base_model->companyGet(null, null, null, null,$userType,$company);
 		$data['companiesSel'] = $this->base_model->companyGet(null, null, null, null,null,null);
-		$data['stations'] = $this->base_model->stationGet(null, $company, $station, $location);
+		// $data['stations'] = $this->base_model->stationGet(null, $company, $station, $location);
+		$data['stations'] = $stations;
 		$data['stationsSel'] = $this->base_model->stationGet(null, null, null, null);
-		$data['companyCount'] = count($this->base_model->companyGet(null, null, null, null,$userType,$company));
+		$data['companyCount'] = $this->base_model->companyGetCount(null, null, null, null,$userType,$company);
 		$data['inactiveCompanyCount'] = count($this->base_model->companyGet("yes", null, null, null,$userType,$company));
 		$data['stationCount'] = count($this->base_model->stationGet(null, $company, $station, $location));
 		$data['inactiveStationCount'] = count($this->base_model->stationGet("yes", $company, $station, $location));
@@ -1914,9 +2541,9 @@ class Base extends CI_Controller {
 		$data['inactiveTankCount'] = count($this->base_model->tankGet("yes",$company,$station));
 		$data['deviceCount'] = count($this->base_model->deviceGet(null,$company,$station));
 		$data['inactiveDeviceCount'] = count($this->base_model->deviceGet("yes",$company,$station));
-		$data['AGOvol'] = $this->getTotalAGO($from,$company,$station);
-		$data['PMSvol'] = $this->getTotalPMS($from,$company,$station);
-		$data['DPKvol'] = $this->getTotalDPK($from,$company,$station);
+		$data['AGOvol'] = $this->getTotalAGO($from,$company,$station,"AGO");
+		$data['PMSvol'] = $this->getTotalPMS($from,$company,$station,"PMS");
+		$data['DPKvol'] = $this->getTotalDPK($from,$company,$station,"DPK");
 		$data['pendingApprovals'] = $this->base_model->companyGet(null,'yes', null, null,$userType,$company);
 		$data['recentLogs'] = $this->base_model->actLogGet($company,$station,$from,$to,$userType);
 		$data['mostActiveUsers'] = $this->base_model->mostActiveGet($company,$station,$from,$to,$userType);
@@ -1933,15 +2560,14 @@ class Base extends CI_Controller {
 		$data['pmsSevenLogs'] = $this->getLastSevenLogs("PMS",$from,$company,$station);
 		$data['dpkSevenLogs'] = $this->getLastSevenLogs("DPK",$from,$company,$station);
 		
-		$currVal = $this->base_model->getTankDay("01",'1',null,'2018-03-27');
-		// var_dump($currVal);
+		// $currVal = $this->base_model->getTankDay("01",'1',null,'2018-03-27');
 		
-		$data['currVal'] = $currVal;
+		// $data['currVal'] = $currVal;
 
 
+		echo json_encode($data);
 		// $this->getTotalAGO();
 		// var_dump($data);
-		echo json_encode($data);
 
 
 	}
@@ -1962,7 +2588,9 @@ class Base extends CI_Controller {
 		$time = $date;
 		if($date == null){
 
-			$time = date('Y-m-d');
+			$time = date('Y-m-d H:i:s');
+			// $date = date('Y-m-d H:i:s');
+
 		}
 		// else{
 		// 	$time = $date
@@ -1971,13 +2599,13 @@ class Base extends CI_Controller {
 		while($count<7){
 			// var_dump($time);
 			if($prod == "AGO"){
-				array_push($arr,$this->getTotalAGO($time,$coy,$stat));
+				array_push($arr,$this->getTotalAGO($time,$coy,$stat,"AGO"));
 			}
 			if($prod == "PMS"){
-				array_push($arr,$this->getTotalPMS($time,$coy,$stat));
+				array_push($arr,$this->getTotalPMS($time,$coy,$stat,"PMS"));
 			}
 			if($prod == "DPK"){
-				array_push($arr,$this->getTotalDPK($time,$coy,$stat));
+				array_push($arr,$this->getTotalDPK($time,$coy,$stat,"DPK"));
 			}
 			$count++;
 			$time = date('Y-m-d', strtotime('-1 day', strtotime($time)));
@@ -1993,113 +2621,177 @@ class Base extends CI_Controller {
 
 
 
-	function getTotalAGO($date=null,$coy=null,$stat = null){
+	function getTotalAGO($date=null,$coy=null,$stat = null,$prod=null){
 		
-		$maxvol = 0;
+		// $maxvol = 0;
 
-		$tanks = $this->base_model->tankGet();
+		// $tanks = [];
 
+		// if(isset($coy) && $coy != null && $coy != 0){
+			
+		// 	$tanks = $this->base_model->tankGet(null,$coy,null,null,$prod);
+		// }
+		
+		// if(isset($stat) && $stat != null && $stat != 0){
+			
+		// 	$tanks = $this->base_model->tankGet(null,null,$stat,null,$prod);
+		// }
+		
+		// foreach ($tanks as $tank) {
+			
+		// 	// var_dump($tank['tank_name']);
+		// 	if($date == null){
+
+		// 		$curr = $this->getCurrVolumeByTank($tank,"DIE");
+		// 	}
+		// 	elseif($date !=null){
+		// 		$curr = $this->getCurrVolumeByTank($tank,"DIE",$date);
+		
+		// 	}
+		// // var_dump($curr);
+
+		// 	$maxvol += $curr;
+		
+		// }
+		
+		// return $maxvol;
+
+		$stats = (count($this->base_model->stationGet(null,null,null,null)) > 0) ? array_column($this->base_model->stationGet(null,null,null,null), 'station_id') : [];
+		
 		if(isset($coy) && $coy != null && $coy != 0){
 			
-			$tanks = $this->base_model->tankGet(null,$coy);
+			$stats = (count($this->base_model->stationGet(null,$coy,null,null)) > 0) ? array_column($this->base_model->stationGet(null,$coy,null,null), 'station_id') : [];
 		}
 		
 		if(isset($stat) && $stat != null && $stat != 0){
 			
-			$tanks = $this->base_model->tankGet(null,null,$stat);
-		}
-		
-		foreach ($tanks as $tank) {
+			// $tanks = $this->base_model->tankGet(null,null,$stat,null,$prod);
+			$stats = (count($this->base_model->stationGet(null,null,$stat,null)) > 0) ? array_column($this->base_model->stationGet(null,null,$stat,null), 'station_id') : [];
 			
-			// var_dump($tank['tank_name']);
-			if($date == null){
-
-				$curr = $this->getCurrVolumeByTank($tank,"DIE");
-			}
-			elseif($date !=null){
-				$curr = $this->getCurrVolumeByTank($tank,"DIE",$date);
-
-			}
-		// var_dump($curr);
-
-			$maxvol += $curr;
-		
 		}
 		
+				$maxvol = array_sum((count($this->base_model->getstatCurTankVol($stats,"AGO",$date)) > 0) ? array_column($this->base_model->getstatCurTankVol($stats,"AGO",$date), 'volume') : []);
+
+		return $maxvol;
+
+		
+	}
+
+
+	
+	function getTotalPMS($date=null,$coy=null,$stat = null,$prod=null){
+		
+		// $maxvol = 0;
+		// // $tanks = $this->base_model->tankGet(null,null,null,null,$prod);
+		// $tanks = [];
+
+		
+		// if(isset($coy) && $coy != null && $coy != 0){
+			
+		// 	$tanks = $this->base_model->tankGet(null,$coy,null,null,$prod);
+		// }
+
+		// if(isset($stat) && $stat != null && $stat != 0){
+			
+		// 	$tanks = $this->base_model->tankGet(null,null,$stat,null,$prod);
+		// }
+		
+		// foreach ($tanks as $tank) {
+			
+		// 	// var_dump($tank);
+
+		// 	// $curr = $this->getCurrVolumeByTank($tank,"PET");
+		// 	if($date == null){
+
+		// 		$curr = $this->getCurrVolumeByTank($tank,"PET");
+		// 	}
+		// 	elseif($date !=null){
+		// 		$curr = $this->getCurrVolumeByTank($tank,"PET",$date);
+
+		// 	}
+
+		// 	$maxvol += $curr;
+		
+		// }
+		
+		// return $maxvol;
+
+		$stats = (count($this->base_model->stationGet(null,null,null,null)) > 0) ? array_column($this->base_model->stationGet(null,null,null,null), 'station_id') : [];
+
+
+		if(isset($coy) && $coy != null && $coy != 0){
+			
+			$stats = (count($this->base_model->stationGet(null,$coy,null,null)) > 0) ? array_column($this->base_model->stationGet(null,$coy,null,null), 'station_id') : [];
+		}
+		
+		if(isset($stat) && $stat != null && $stat != 0){
+			
+			// $tanks = $this->base_model->tankGet(null,null,$stat,null,$prod);
+			$stats = (count($this->base_model->stationGet(null,null,$stat,null)) > 0) ? array_column($this->base_model->stationGet(null,null,$stat,null), 'station_id') : [];
+			
+		}
+		
+				$maxvol = array_sum((count($this->base_model->getstatCurTankVol($stats,"PMS",$date)) > 0) ? array_column($this->base_model->getstatCurTankVol($stats,"PMS",$date), 'volume') : []);
+
 		return $maxvol;
 		
 	}
 	
-	function getTotalPMS($date=null,$coy=null,$stat = null){
+	function getTotalDPK($date=null,$coy=null,$stat = null,$prod=null){
 		
-		$maxvol = 0;
-		$tanks = $this->base_model->tankGet();
+		// $maxvol = 0;
+		// // $tanks = $this->base_model->tankGet(null,null,null,null,$prod);
+		// $tanks = [];
+
+
+		// if(isset($coy) && $coy != null && $coy != 0){
+			
+		// 	$tanks = $this->base_model->tankGet(null,$coy,null,null,$prod);
+		// }
+
+		// if(isset($stat) && $stat != null && $stat != 0){
+			
+		// 	$tanks = $this->base_model->tankGet(null,null,$stat,null,$prod);
+		// }
 		
+		// foreach ($tanks as $tank) {
+			
+		// 	// var_dump($tank);
+
+		// 	// $curr = $this->getCurrVolumeByTank($tank,"KER");
+		// 	if($date == null){
+
+		// 		$curr = $this->getCurrVolumeByTank($tank,"KER");
+		// 	}
+		// 	elseif($date !=null){
+		// 		$curr = $this->getCurrVolumeByTank($tank,"KER",$date);
+
+		// 	}
+
+		// 	$maxvol += $curr;
+		
+		// }
+		
+		// return $maxvol;
+
+		$stats = (count($this->base_model->stationGet(null,null,null,null)) > 0) ? array_column($this->base_model->stationGet(null,null,null,null), 'station_id') : [];
+
+
+
 		if(isset($coy) && $coy != null && $coy != 0){
 			
-			$tanks = $this->base_model->tankGet(null,$coy);
+			$stats = (count($this->base_model->stationGet(null,$coy,null,null)) > 0) ? array_column($this->base_model->stationGet(null,$coy,null,null), 'station_id') : [];
 		}
-
+		
 		if(isset($stat) && $stat != null && $stat != 0){
 			
-			$tanks = $this->base_model->tankGet(null,null,$stat);
-		}
-		
-		foreach ($tanks as $tank) {
+			// $tanks = $this->base_model->tankGet(null,null,$stat,null,$prod);
+			$stats = (count($this->base_model->stationGet(null,null,$stat,null)) > 0) ? array_column($this->base_model->stationGet(null,null,$stat,null), 'station_id') : [];
 			
-			// var_dump($tank);
-
-			// $curr = $this->getCurrVolumeByTank($tank,"PET");
-			if($date == null){
-
-				$curr = $this->getCurrVolumeByTank($tank,"PET");
-			}
-			elseif($date !=null){
-				$curr = $this->getCurrVolumeByTank($tank,"PET",$date);
-
-			}
-
-			$maxvol += $curr;
-		
 		}
 		
-		return $maxvol;
-		
-	}
-	
-	function getTotalDPK($date=null,$coy=null,$stat = null){
-		
-		$maxvol = 0;
-		$tanks = $this->base_model->tankGet();
+				$maxvol = array_sum((count($this->base_model->getstatCurTankVol($stats,"DPK",$date)) > 0) ? array_column($this->base_model->getstatCurTankVol($stats,"DPK",$date), 'volume') : []);
 
-		if(isset($coy) && $coy != null && $coy != 0){
-			
-			$tanks = $this->base_model->tankGet(null,$coy);
-		}
-
-		if(isset($stat) && $stat != null && $stat != 0){
-			
-			$tanks = $this->base_model->tankGet(null,null,$stat);
-		}
-		
-		foreach ($tanks as $tank) {
-			
-			// var_dump($tank);
-
-			// $curr = $this->getCurrVolumeByTank($tank,"KER");
-			if($date == null){
-
-				$curr = $this->getCurrVolumeByTank($tank,"KER");
-			}
-			elseif($date !=null){
-				$curr = $this->getCurrVolumeByTank($tank,"KER",$date);
-
-			}
-
-			$maxvol += $curr;
-		
-		}
-		
 		return $maxvol;
 		
 	}
@@ -2124,6 +2816,108 @@ class Base extends CI_Controller {
 		return $currVol;
 
 	}
+
+
+
+	function savecurrtankvol(){
+
+		ini_set('memory_limit', '1024M');
+				ini_set('max_execution_time', 30000);
+
+		$stats = $this->base_model->stationget();
+
+		foreach ($stats as $stat) {
+			
+			$id = $stat["station_id"];
+
+			$maxvol = 0;
+
+			$date = date('Y-m-d H:i:s');
+			// ============================ago=========================
+			$prod = "AGO";
+			$tanks = $this->base_model->tankGet(null,null,$id,null,$prod);
+
+			foreach ($tanks as $tank) {
+			
+				// var_dump($tank['tank_name']);
+				if($date == null){
+	
+					$curr = $this->getCurrVolumeByTank($tank,"DIE");
+				}
+				elseif($date !=null){
+					$curr = $this->getCurrVolumeByTank($tank,"DIE",$date);
+	
+				}
+			// var_dump($curr);
+	
+				$maxvol += $curr;
+			
+			}
+
+			$res = $this->base_model->statCurTankVol($id, $prod, $date, $maxvol);
+
+			// ============================pms=========================
+			$prod = "PMS";
+			$tanks = $this->base_model->tankGet(null,null,$id,null,$prod);
+
+			$maxvol = 0;
+
+
+			foreach ($tanks as $tank) {
+			
+				// var_dump($tank['tank_name']);
+				if($date == null){
+	
+					$curr = $this->getCurrVolumeByTank($tank,"PET");
+				}
+				elseif($date !=null){
+					$curr = $this->getCurrVolumeByTank($tank,"PET",$date);
+	
+				}
+			// var_dump($curr);
+	
+				$maxvol += $curr;
+			
+			}
+
+			$res = $this->base_model->statCurTankVol($id, $prod, $date, $maxvol);
+			// ============================DPK=========================
+			$prod = "DPK";
+			$tanks = $this->base_model->tankGet(null,null,$id,null,$prod);
+
+			$maxvol = 0;
+
+
+			foreach ($tanks as $tank) {
+			
+				// var_dump($tank['tank_name']);
+				if($date == null){
+	
+					$curr = $this->getCurrVolumeByTank($tank,"KER");
+				}
+				elseif($date !=null){
+					$curr = $this->getCurrVolumeByTank($tank,"KER",$date);
+	
+				}
+			// var_dump($curr);
+	
+				$maxvol += $curr;
+			
+			}
+
+			$res = $this->base_model->statCurTankVol($id, $prod, $date, $maxvol);
+			// ============================DPK=========================
+
+
+
+		
+		}	
+
+		echo "done";	
+
+	}
+
+
 
 
 	function getTankLogs(){
@@ -2201,9 +2995,11 @@ class Base extends CI_Controller {
 
 	function deleteNotification($nId = null){
 
+		// var_dump($nId);
+
 		$result = $this->base_model->deleteNotification($nId); 
 
-		$name = $this->getNotification($nId,true) ? $this->getNotification($nId,true)[0]['activity'] : "Not Found";
+		$name = $this->getNotification($nId,true) ? $this->getNotification($nId,true)[0]['message'] : "Not Found";
 
 		if($result){
 			$logArr = array(
@@ -2244,7 +3040,8 @@ class Base extends CI_Controller {
 
 	
 	function getNotifications(){
-
+		ini_set('memory_limit', '1024M');
+		ini_set('max_execution_time', 3000);
 		// $result = $this->base_model->deleteNotification($nId); 
 		$data = array();
 		$data['notifications'] = $this->base_model->notificationGet();
@@ -2274,6 +3071,7 @@ class Base extends CI_Controller {
 			}
 			elseif  ($this->session->userdata('acctType') == "companyAdmin" ){
 				$this->load->view('company/dashboard');
+				// $this->load->view('company/pumpmgt');
 				
 			}
 			elseif  ($this->session->userdata('acctType') == "stationAdmin" ){
@@ -2288,6 +3086,8 @@ class Base extends CI_Controller {
 			}
 			elseif  ($this->session->userdata('acctType') == "regCoyUser" ){
 				$this->load->view('company/dashboard');
+				// $this->load->view('company/pumpmgt');
+
 
 			}
 			elseif  ($this->session->userdata('acctType') == "regStatUser" ){
@@ -2305,12 +3105,12 @@ class Base extends CI_Controller {
 	}
 
 
-	function generalCompany(){
-				ini_set('memory_limit', '1024M');
-				// ini_set('memory_limit', '254M');
+	function generalCompanyHeavy(){
+		ini_set('memory_limit', '1024M');
+				ini_set('max_execution_time', 3000);
 
-		// if()
-		$from = $this->input->post('from',true);
+
+				$from = $this->input->post('from',true);
 		$to = $this->input->post('to',true);
 		$userType = $this->input->post('userType',true);
 		$station = $this->input->post('station',true);
@@ -2360,18 +3160,100 @@ class Base extends CI_Controller {
 
 
 
+		}
+
+		$data = array(
+			"reorder"=> $reorderFreq,
+			"sales"=> $salesFreq
+		);
+
+		$res = $this->base_model->addcronscript("coyDashHeavy",json_encode($data));
+
+
+
+	}
+
+
+
+	function generalCompany(){
+				ini_set('memory_limit', '1024M');
+				ini_set('memory_limit', '254M');
+
+		// if()
+		$from = $this->input->post('from',true);
+		$to = $this->input->post('to',true);
+		$userType = $this->input->post('userType',true);
+		$station = $this->input->post('station',true);
+		$location = $this->input->post('location',true);
+
+		$coy = $this->session->userdata('company');
+		$coyName = (count($this->base_model->getCompany($coy))>0) ? $this->base_model->getCompany($coy)[0]["name"] : null;
+
+		$stations = $this->base_model->stationGet(null,$coy,$station,$location);
+		$reorderFreq = [];
+		$salesFreq = [];
+	
+		foreach ($stations as $key=>$stat) {
+		
+			$name = $stat['name'];
+			$id = $stat['station_id'];
+			$loc = $stat['location'];
+
+			$tanks = $this->base_model->tankGet(null,null,$id);
+
+			$reorders = [];
+			$sales = [];
+			foreach ($tanks as $key=>$tank) {
+				$grbt = $this->getReordersByTank($tank);
+				// var_dump($grbt);
+				if($grbt == null || count($grbt)<1){
+					continue;
+				}
+				$reorders = array_merge($reorders,$grbt);
+
+			
+			}
+
+
+			foreach ($tanks as $key=>$tank) {
+				$grbt = $this->getSalesByTank($tank);
+				// var_dump($grbt);
+				if($grbt == null || count($grbt)<1){
+					continue;
+				}
+				$sales = array_merge($sales,$grbt);
+
+			
+			}
+
+			array_push($reorderFreq,array($name,$loc,count($reorders),$reorders));
+			array_push($salesFreq,array($name,$loc,count($sales),$sales));
+
+
+
 		}		
 		
 
 
 // var_dump($coyName);
+
+		// $coyHeavy = count($this->base_model->getCoyHeavy()) > 0 ? json_decode($this->base_model->getCoyHeavy()[0]['json'],true) : [];
+
+		// $reorderFreq = $coyHeavy['reorder'];
+		// $salesFreq = $coyHeavy['sales'];
+
 		$data = array();
 
 		$data['reorders'] = $reorderFreq;
+		
+		// $data['reorders'] = $this->base_model->notificationReorderGet($coyName);
+
 		$data['sales'] = $salesFreq;
 
 		// $data['companies'] = $this->base_model->companyGet();
-		$data['stations'] = $this->base_model->stationGet(null,$coy,$station,$location);
+		$data['stations'] = $stations;
+		// $data['stations'] = $this->base_model->stationGet(null,$coy,$station,$location);
+
 		$data['stationsSel'] = $this->base_model->stationGet(null,$coy,null,null);
 		// $data['companyCount'] = count($this->base_model->companyGet());
 		// $data['inactiveCompanyCount'] = count($this->base_model->companyGet("yes"));
@@ -2390,15 +3272,16 @@ class Base extends CI_Controller {
 		$data['inactiveTankCount'] = count($this->base_model->tankGet("yes",$coy,$station));
 		$data['locations'] = $this->base_model->locationGet($coy,$station,$location);
 		$data['locationsSel'] = $this->base_model->locationGet($coy,null,null);
+
+		
 		$data['notificationsCount'] = $this->base_model->notificationGet("yes",$coyName);
 		$data['notifications'] = $this->base_model->notificationGet(null,$coyName);
 
+// echo $from;
 
-
-		$data['AGOvol'] = $this->getTotalAGO($from,$coy,$station);
-		$data['PMSvol'] = $this->getTotalPMS($from,$coy,$station);
-		$data['DPKvol'] = $this->getTotalDPK($from,$coy,$station);
-		// $data['pendingApprovals'] = $this->base_model->companyGet(null,'yes');
+		$data['AGOvol'] = $this->getTotalAGO($from,$coy,$station,"AGO");
+		$data['PMSvol'] = $this->getTotalPMS($from,$coy,$station,"PMS");
+		$data['DPKvol'] = $this->getTotalDPK($from,$coy,$station,"DPK");
 		
 		$data['recentLogs'] = $this->base_model->actLogGet($coy,$station,$from,$to,$userType);
 		$data['mostActiveUsers'] = $this->base_model->mostActiveGet($coy,$station,$from,$to,$userType);
@@ -2415,6 +3298,7 @@ class Base extends CI_Controller {
 
 
 	}
+	
 
 	function getcoyNotifications(){
 		$coy = $this->session->userdata('company');
@@ -2456,6 +3340,8 @@ class Base extends CI_Controller {
 			}
 			elseif  ($this->session->userdata('acctType') == "stationAdmin" ){
 				$this->load->view('station/dashboard');
+				// $this->load->view('station/pumpmgt');
+
 
 			}
 			elseif  ($this->session->userdata('acctType') == "regUser" ){
@@ -2470,6 +3356,7 @@ class Base extends CI_Controller {
 			}
 			elseif  ($this->session->userdata('acctType') == "regStatUser" ){
 				$this->load->view('station/dashboard');
+				// $this->load->view('station/pumpmgt');
 
 			}
 
@@ -2486,9 +3373,35 @@ class Base extends CI_Controller {
 
 	function getSalesByTank($tank = null){
 
-		$tankLogs = $this->base_model->getTankDay("01",'1');
+		// $tankLogs = $this->base_model->getTankDay("01",'1');
+		ini_set('memory_limit', '1024M');
+		ini_set('max_execution_time', 3000);
 
-		$tankLogs = $this->base_model->getTankDay($tank['tank_num'],$tank['device_id']);
+		$sale = ($this->base_model->gettanksalereord($tank['tank_id'],"S") != null) ? $this->base_model->gettanksalereord($tank['tank_id'],"S")["value"] : null;
+
+		return $sale;
+		
+	}
+	
+	
+	
+	function getSalesByTankHeavy($tank = null){
+
+		// $tankLogs = $this->base_model->getTankDay("01",'1');
+
+		$prod = null;
+		if($tank['product'] == "AGO"){
+			$prod = "DIE";
+		}
+		elseif($tank['product'] == "PMS"){
+			$prod = "PET";
+		}
+		elseif($tank['product'] == "DPK"){
+			$prod = "KER";
+		}
+
+
+		$tankLogs = $this->base_model->getTankDay($tank['tank_num'],$tank['device_id'],$prod);
 
 		if($tankLogs == "2" || $tankLogs == "7"){
 			return null;
@@ -2530,11 +3443,89 @@ class Base extends CI_Controller {
 
 
 
-	function getReordersByTank($tank = null){
 
-		$tankLogs = $this->base_model->getTankDay("01",'1');
 
-		$tankLogs = $this->base_model->getTankDay($tank['tank_num'],$tank['device_id']);
+	function getSalesByAllTanks(){
+
+		ini_set('memory_limit', '1024M');
+		ini_set('max_execution_time', 3000);
+
+		$allTanks = $this->base_model->tankGet(null,null,null);
+		$reorders = null;
+		// var_dump($allTanks);
+
+		
+			foreach ($allTanks as $key=>$tank) {
+				$grbt = $this->getSalesByTankHeavy($tank);
+				var_dump($grbt);
+				
+				if($grbt == null || count($grbt)<1){
+					continue;
+				}
+				$reorders = array_merge($reorders,$grbt);
+				
+				var_dump($tank['tank_id']);
+				var_dump($reorders);
+				var_dump("<br>");
+				
+				
+				$res = $this->base_model->tanksalereord($tank['tank_id'],"S",$reorders);
+
+			}
+
+	}
+
+	function getReordersByAllTanks(){
+
+		ini_set('memory_limit', '1024M');
+		ini_set('max_execution_time', 3000);
+
+		$allTanks = $this->base_model->tankGet(null,null,null);
+		$reorders = null;
+		// var_dump($allTanks);
+
+		
+			foreach ($allTanks as $key=>$tank) {
+				$grbt = $this->getReordersByTankHeavy($tank);
+				var_dump($grbt);
+				
+				if($grbt == null || count($grbt)<1){
+					continue;
+				}
+				$reorders = array_merge($reorders,$grbt);
+				
+				var_dump($tank['tank_id']);
+				var_dump($reorders);
+				var_dump("<br>");
+				
+				
+				$res = $this->base_model->tanksalereord($tank['tank_id'],"R",$reorders);
+
+			}
+
+	}
+
+
+
+	function getReordersByTankHeavy($tank = null){
+
+		// $tankLogs = $this->base_model->getTankDay("01",'1');
+		ini_set('memory_limit', '1024M');
+		ini_set('max_execution_time', 3000);
+
+		$prod = null;
+		if($tank['product'] == "AGO"){
+			$prod = "DIE";
+		}
+		elseif($tank['product'] == "PMS"){
+			$prod = "PET";
+		}
+		elseif($tank['product'] == "DPK"){
+			$prod = "KER";
+		}
+
+
+		$tankLogs = $this->base_model->getTankDay($tank['tank_num'],$tank['device_id'],$prod);
 
 		if($tankLogs == "2" || $tankLogs == "7"){
 			return null;
@@ -2558,30 +3549,36 @@ class Base extends CI_Controller {
 			if(($vol-$pvol) > 100){
 				array_push($reorder,$log);
 				// var_dump($log);
-				// echo "<br/>" ;
-				// echo "<br/>" ;
-				// echo "<br/>" ;
-
+				
 			}
 		}
 
 
-		// print_r($reorder);
+		return $reorder;
+		
+	}
+	
+	
+	function getReordersByTank($tank = null){
 
+		// $tankLogs = $this->base_model->getTankDay("01",'1');
+		ini_set('memory_limit', '1024M');
+		ini_set('max_execution_time', 3000);
+
+		$reorder = ($this->base_model->gettanksalereord($tank['tank_id'],"R") != null) ? $this->base_model->gettanksalereord($tank['tank_id'],"R")["value"] : null;
 
 		return $reorder;
-
 		
 	}
 
 
 
 
-	function generalStation(){
-				ini_set('memory_limit', '1024M');
-				// ini_set('memory_limit', '254M');
+	function generalStationHeavy(){
 
-		// if()
+		ini_set('memory_limit', '1024M');
+				ini_set('max_execution_time', 3000);
+
 		$from = $this->input->post('from',true);
 		$to = $this->input->post('to',true);
 		$userType = $this->input->post('userType',true);
@@ -2616,6 +3613,65 @@ class Base extends CI_Controller {
 		}
 
 
+		$data = array(
+			"reorder"=> $reorders,
+			"sales"=> $sales
+		);
+
+		$res = $this->base_model->addcronscript("statDashHeavy",json_encode($data));
+
+
+	}
+
+
+
+	function generalStation(){
+				ini_set('memory_limit', '1024M');
+				// ini_set('memory_limit', '254M');
+
+		// if()
+		$from = $this->input->post('from',true);
+		$to = $this->input->post('to',true);
+		$userType = $this->input->post('userType',true);
+		
+
+		$stat = $this->session->userdata('station');
+		$coy = $this->session->userdata('company');
+
+		$statName = (count($this->base_model->getStation($stat))>0) ? $this->base_model->getStation($stat)[0]["name"] : null;
+		
+		$tanks = $this->base_model->tankGet(null,null,$stat);
+		$reorders = [];
+		$sales = [];
+		foreach ($tanks as $key=>$tank) {
+			$grbt = $this->getReordersByTank($tank);
+			// var_dump($grbt);
+			if($grbt == null || count($grbt)<1){
+				continue;
+			}
+			$reorders = array_merge($reorders,$grbt);
+
+		
+		}
+			// ========================================
+		foreach ($tanks as $key=>$tank) {
+
+			$grbt = $this->getSalesByTank($tank);
+			// var_dump($grbt);
+			if($grbt == null || count($grbt)<1){
+				continue;
+			}
+			$sales = array_merge($sales,$grbt);
+
+		
+		}
+
+
+		// $statHeavy = count($this->base_model->getStatHeavy()) > 0 ? json_decode($this->base_model->getStatHeavy()[0]['json'],true) : [];
+
+		// $reorders = $statHeavy['reorder'];
+		// $sales = $statHeavy['sales'];
+
 
 		$data = array();
 
@@ -2626,7 +3682,6 @@ class Base extends CI_Controller {
 		$data['sales'] = $sales;
 
 
-		
 		
 		$data['userCount'] = count($this->base_model->userGet(null,null,null,null,$stat,$userType));
 		$data['inactiveUserCount'] = count($this->base_model->userGet("yes",null,null,null,$stat,$userType));
@@ -2644,13 +3699,12 @@ class Base extends CI_Controller {
 		// $data['locations'] = $this->base_model->locationGet(null,$stat);
 		$data['notificationsCount'] = $this->base_model->notificationGet("yes",null,$statName);
 		$data['notifications'] = $this->base_model->notificationGet(null,null,$statName);
-
-
-
-		$data['AGOvol'] = $this->getTotalAGO($from,null,$stat);
-		$data['PMSvol'] = $this->getTotalPMS($from,null,$stat);
-		$data['DPKvol'] = $this->getTotalDPK($from,null,$stat);
-		// $data['pendingApprovals'] = $this->base_model->companyGet(null,'yes');
+		
+		
+		
+		$data['AGOvol'] = $this->getTotalAGO($from,null,$stat,"AGO");
+		$data['DPKvol'] = $this->getTotalDPK($from,null,$stat,"DPK");
+		$data['PMSvol'] = $this->getTotalPMS($from,null,$stat,"PMS");
 		
 		$data['recentLogs'] = $this->base_model->actLogGet(null,$stat,$from,$to,$userType);
 		$data['mostActiveUsers'] = $this->base_model->mostActiveGet(null,$stat,$from,$to,$userType);
@@ -2658,15 +3712,19 @@ class Base extends CI_Controller {
 		// $data['agoSevenLogs'] = $this->getLastSevenLogs("AGO");
 		// $data['pmsSevenLogs'] = $this->getLastSevenLogs("PMS");
 		// $data['dpkSevenLogs'] = $this->getLastSevenLogs("DPK");
-		$data['agoSevenLogs'] = $this->getLastSevenLogs("AGO",$from,null,$stat);
-		$data['pmsSevenLogs'] = $this->getLastSevenLogs("PMS",$from,null,$stat);
-		$data['dpkSevenLogs'] = $this->getLastSevenLogs("DPK",$from,null,$stat);
-
+		
+		$data['agoSevenLogs'] = $this->getLastSevenLogs("AGO",$from,$coy,$stat);
+		$data['pmsSevenLogs'] = $this->getLastSevenLogs("PMS",$from,$coy,$stat);
+		$data['dpkSevenLogs'] = $this->getLastSevenLogs("DPK",$from,$coy,$stat);
+		
+		echo json_encode($data);
+		return;		
 
 
 		// $this->getTotalAGO();
 		// var_dump($data);
-		echo json_encode($data);
+
+		// echo json_encode($data);
 
 
 	}
@@ -2806,6 +3864,27 @@ class Base extends CI_Controller {
 
 
 
+	function sendPacket(){
+
+		$server_ip   = '127.0.0.1';
+$server_port = 43278;
+$beat_period = 30;
+$message     = '01 03 00 03 00 01 74 0A';
+print "Sending heartbeat to IP $server_ip, port $server_port";
+print "press Ctrl-C to stopn";
+if ($socket = socket_create(AF_INET, SOCK_DGRAM, SOL_UDP)) {
+	// print ""
+  while (1) {
+    socket_sendto($socket, $message, strlen($message), 0, $server_ip, $server_port);
+    print "Time: " . date("%r") . "n";
+    sleep($beat_period);
+  }
+} else {
+  print("can't create socketn");
+}
+
+	}
+
 // ================================backend ops=================================================
 
 public function getStationThresholds(){
@@ -2822,10 +3901,11 @@ public function getStationThresholds(){
 			// $item["numberOfTanks"] = count(json_decode($res));
 
 			// var_dump(json_decode($res));
-				
-		foreach (json_decode($res) as $tank) {
-			$currentTankData = $this->base_model->getCurrentData($tank->tank_id);
 			
+			foreach (json_decode($res) as $tank) {
+				$currentTankData = $this->base_model->getCurrentData($tank->tank_id);
+				
+				var_dump($currentTankData);
 			if(count($currentTankData)){
 				
 				// var_dump($currentTankData->log_decoded);
@@ -2958,7 +4038,12 @@ public function toJson($arr){
    // $log['id'] = $arr["uID"];
    $log['timestamp'] = $arr["timestamp"];
    $log['log_raw'] = $arr["raw"];
-   $log['device_id'] = $arr["stationCode"];
+ 
+   $controller = $arr['stationCode'];
+   
+   $log['device_id'] = (count($this->base_model->getControllerbyContId($controller)) ==1) ? $this->base_model->getControllerbyContId($controller)[0]['Source_id'] : 0;
+
+
 
    $result = $this->base_model->addDecodedLog($log);
 //    $fID = $result;
@@ -3040,6 +4125,7 @@ echo "stream data is null or empty";
 
 
 public function Hex2String($hex){
+	var_dump($hex);
 	$string='';
 	for ($i=0; $i < strlen($hex)-1; $i+=2){
 		$string .= chr(hexdec($hex[$i].$hex[$i+1]));
@@ -3052,19 +4138,27 @@ public function Hex2String($hex){
 
 
 public function toDec($binary){
-	$res =0;
+	$res = 0;
 	$strlen = strlen( $binary );
 	$frac = -1;
-	for( $i = 0; $i <= $strlen; $i++ ) {
-		$char = substr( $binary, $i, 1 );
-		$newVal = $char * pow(2, $frac);
-		$res += $newVal;
-	   
-		$frac--;
-		// $char contains the current character, so do your processing here
-	}
+	try{
 
-	return $res;
+		var_dump($binary);
+		for( $i = 0; $i <= $strlen; $i++ ) {
+			$char = substr( $binary, $i, 1 );
+			$newVal = ((is_numeric($char)) ? $char : 0) * pow(2, $frac);
+			$res += $newVal;
+			
+			$frac--;
+			// $char contains the current character, so do your processing here
+		}
+		
+		return $res;
+	}
+	catch(Exception $e) {
+		var_dump($e);
+		return -1;
+	}
 }
 
 
@@ -3074,8 +4168,15 @@ public function toDec($binary){
 public function getNumericVal($rawHexa){
 
 	// $float = decbin(hexdec(Hex2String("3432353133333332")));
-	$float = decbin(hexdec($this->Hex2String($rawHexa)));
-	return $this->decodebin($float);
+	try{
+
+		$float = decbin(hexdec($this->Hex2String($rawHexa)));
+		return $this->decodebin($float);
+	}
+	catch(Exception $e) {
+		var_dump($e);
+		return -1;
+	}
 }
 
 
@@ -3097,49 +4198,93 @@ public function inventoryLog($rawData, $uID , $ts){
 	$retval['raw'] = $rawData;
 
 	$retval['stationCode'] = $this->Hex2String(substr($rawData,4,8));	
-	
+	var_dump($retval['stationCode']);
+	echo "<br>==================================================================================================.<br>";
+
 	// echo Hex2String(substr($rawData,12,4)) . " tank number<br>";
 	
 	$retval['tankNum'] = $this->Hex2String(substr($rawData,12,4));
+	var_dump($retval['tankNum']);
+	echo "<br>==================================================================================================.<br>";
+	
 	
 	// echo $rawData[18].$rawData[19] .'<br>';
-
+	
 	
 	
 	// echo Hex2String(substr($rawData,18,6)) . " fuel type <br>";
 	
 	$retval['fuelType'] = $this->Hex2String(substr($rawData,18,6));
+	var_dump($retval['fuelType']);
+
+	// var_dump("Debug");
+	// var_dump($rawData);
+	$rawData = substr_replace($rawData, '', 24, 6);
+	var_dump("Debug2");
+	var_dump($rawData);
+
+	echo "<br>==================================================================================================.<br>";
 	
 	
 	// echo getNumericVal(substr($rawData,24,16)) . " fuel level <br>";
 	
 	$retval['fuelLevel'] = $this->getNumericVal(substr($rawData,24,16));
+
+	if($retval['tankNum'] == 01){
+
+		$retval['fuelLevel_o'] = $retval['fuelLevel'];
+
+		$retval['fuelLevel'] = $retval['fuelLevel'] + 835;
+	}
+	
+	var_dump($retval['fuelLevel']);
+	echo "<br>==================================================================================================.<br>";
 	
 	
 	// echo getNumericVal(substr($rawData,40,16)) . " water level <br>";
 	
 	$retval['waterLevel'] = $this->getNumericVal(substr($rawData,40,16));
+	var_dump($retval['waterLevel']);
+	echo "<br>==================================================================================================.<br>";
+	
 	
 	
 	// echo getNumericVal(substr($rawData,56,16)) . " temperature <br>";
 	
 	$retval['temp'] = $this->getNumericVal(substr($rawData,56,16));
+	var_dump($retval['temp']);
+	echo "<br>==================================================================================================.<br>";
+	
 	
 	
 	// echo getNumericVal(substr($rawData,72,16)) . " fuel volume <br>";
 	
 	$retval['fuelVol'] = $this->base_model->getCalFuelVol($retval['stationCode'],$retval['tankNum'],$retval['fuelLevel']);
-
+	var_dump($retval['fuelVol']);
+	echo "<br>==================================================================================================.<br>";
+	
+	
 	// print_r($retval['fuelVol']);
 	// print_r("new");
-
+	
 	$retval['probeFuelVol'] = $this->getNumericVal(substr($rawData,72,16));
+	var_dump($retval['probeFuelVol']);
+	echo "<br>==================================================================================================.<br>";
+	
 	
 	
 	// echo getNumericVal(substr($rawData,88,16)) . " water volume <br>";
 	
 	$retval['waterVol'] = $this->base_model->getCalFuelVol($retval['stationCode'],$retval['tankNum'],$retval['waterLevel']);
+	var_dump($retval['waterVol']);
+	echo "<br>==================================================================================================.<br>";
+	
+	
 	$retval['probeWaterVol'] = $this->getNumericVal(substr($rawData,88,16));
+	var_dump($retval['probeWaterVol']);
+	echo "<br>==================================================================================================.<br>";
+	
+	
 	
 
 	// =======================================================================================
@@ -3208,7 +4353,7 @@ public function inventoryLog($rawData, $uID , $ts){
 	
 	$controller = $retval['stationCode'];
 
-	$devId = (count($this->getControllerbyContId($controller)) ==1) ? $this->getControllerbyContId($controller)[0]['Source_id'] : 0;
+	$devId = (count($this->base_model->getControllerbyContId($controller)) ==1) ? $this->base_model->getControllerbyContId($controller)[0]['Source_id'] : 0;
 
 	$currVol = $this->base_model->getCurrentTankData($retval['tankNum'],$devId);
 
@@ -3251,11 +4396,16 @@ public function inventoryLog($rawData, $uID , $ts){
 	// echo getNumericVal(substr($rawData,104,16)) . " Ullage volume <br>";
 	
 	$retval['ullageVol'] = $this->getNumericVal(substr($rawData,104,16));
+	var_dump($retval['ullageVol']);
+	echo "<br>==================================================================================================.<br>";
 	
 	
 	// echo getNumericVal(substr($rawData,120,16)) . " tank height <br>";
 	
 	$retval['tankHeight'] = $this->getNumericVal(substr($rawData,120,16));
+	
+	var_dump($retval['tankHeight']);
+	echo "<br>==================================================================================================.<br>";
 	
 	
 	// echo substr($rawData,-2) .' end bytes<br>';
@@ -4126,27 +5276,30 @@ function ibafonLogs(){
 			
 			$this->email->subject($subject);
 			
-			$this->email->message("<br><br>".$msg."<br><br><br><br>");  
-			if ($this->email->send())
-					{
-			// echo "Email Send Successful";
-			// echo $this->email->print_debugger();
-			// echo $email;
-			// echo $subject;
-			// echo $msg;
-			return "1";
-					} 
-			else
-					{
-			// echo $this->email->print_debugger();
-			// echo $email;
-			// echo $subject;
-			// echo $msg;
-
-			return "0";
-					}  
-
-		 }
+			// $this->email->message("<br><br>".$msg."<br><br><br><br>");  
+			// if ($this->email->send())
+			// 		{
+			// // echo "Email Send Successful";
+			// // echo $this->email->print_debugger();
+			// // echo $email;
+			// // echo $subject;
+			// // echo $msg;
+			// return "1";
+			// 		} 
+			// else
+			// 		{
+				// // echo $this->email->print_debugger();
+				// // echo $email;
+				// // echo $subject;
+				// // echo $msg;
+				
+				// return "0";
+				// 		}  
+				
+		
+				return "1";
+		
+			}
 
 
 
