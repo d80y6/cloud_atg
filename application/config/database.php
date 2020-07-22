@@ -78,8 +78,7 @@ $db['default'] = array(
 	'hostname' => 'localhost',
 	'username' => 'root',
 	'password' => '',
-	// 'password' => 'SWIFT1ifa',
-	// 'database' => 'new_atgdb',
+	
 	'database' => 'atgdbnew',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
